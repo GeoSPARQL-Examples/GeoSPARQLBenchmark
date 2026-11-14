@@ -1,0 +1,755 @@
+{
+  "boundary_01": {
+    "function": "geof:boundary",
+    "status": "reference-derived",
+    "comparison": "geometry-equality",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "literal",
+              "datatype": "geo:wktLiteral",
+              "value": "LINESTRING (-83.6 34.1, -83.2 34.1, -83.2 34.5, -83.6 34.5, -83.6 34.1)"
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Expected value derived from simple geometry properties or independent Shapely calculations; not yet cross-validated against a second reference."
+  },
+  "boundingCircle_01": {
+    "function": "geof:boundingCircle",
+    "status": "needs-oracle",
+    "comparison": "geometry-equality",
+    "acceptedResults": [],
+    "validationNote": "Do not claim an exact reference output without independently checking the specification, CRS/unit behavior, or algorithm-dependent geometry.",
+    "expectedResultPending": true
+  },
+  "metricBuffer_01": {
+    "function": "geof:metricBuffer",
+    "status": "needs-oracle",
+    "comparison": "geometry-equality",
+    "acceptedResults": [],
+    "validationNote": "Do not claim an exact reference output without independently checking the specification, CRS/unit behavior, or algorithm-dependent geometry.",
+    "expectedResultPending": true
+  },
+  "buffer_01": {
+    "function": "geof:buffer",
+    "status": "needs-oracle",
+    "comparison": "geometry-equality",
+    "acceptedResults": [],
+    "validationNote": "Do not claim an exact reference output without independently checking the specification, CRS/unit behavior, or algorithm-dependent geometry.",
+    "expectedResultPending": true
+  },
+  "centroid_01": {
+    "function": "geof:centroid",
+    "status": "reference-derived",
+    "comparison": "geometry-equality",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "literal",
+              "datatype": "geo:wktLiteral",
+              "value": "POINT (-83.39999999999999 34.300000000000004)"
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Expected value derived from simple geometry properties or independent Shapely calculations; not yet cross-validated against a second reference."
+  },
+  "convexHull_01": {
+    "function": "geof:convexHull",
+    "status": "reference-derived",
+    "comparison": "geometry-equality",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "literal",
+              "datatype": "geo:wktLiteral",
+              "value": "POLYGON ((0 0, 0 4, 4 4, 4 0, 0 0))"
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Expected value derived from simple geometry properties or independent Shapely calculations; not yet cross-validated against a second reference."
+  },
+  "concaveHull_01": {
+    "function": "geof:concaveHull",
+    "status": "needs-oracle",
+    "comparison": "geometry-equality",
+    "acceptedResults": [],
+    "validationNote": "Do not claim an exact reference output without independently checking the specification, CRS/unit behavior, or algorithm-dependent geometry.",
+    "expectedResultPending": true
+  },
+  "coordinateDimension_01": {
+    "function": "geof:coordinateDimension",
+    "status": "reference-derived",
+    "comparison": "rdf-value",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "literal",
+              "datatype": "xsd:integer",
+              "value": 3
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Expected value derived from simple geometry properties or independent Shapely calculations; not yet cross-validated against a second reference."
+  },
+  "difference_01": {
+    "function": "geof:difference",
+    "status": "reference-derived",
+    "comparison": "geometry-equality",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "literal",
+              "datatype": "geo:wktLiteral",
+              "value": "POLYGON ((-83.6 34.5, -83.2 34.5, -83.2 34.1, -83.4 34.1, -83.4 34.3, -83.6 34.3, -83.6 34.5))"
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Expected value derived from simple geometry properties or independent Shapely calculations; not yet cross-validated against a second reference."
+  },
+  "dimension_01": {
+    "function": "geof:dimension",
+    "status": "reference-derived",
+    "comparison": "rdf-value",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "literal",
+              "datatype": "xsd:integer",
+              "value": 2
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Expected value derived from simple geometry properties or independent Shapely calculations; not yet cross-validated against a second reference."
+  },
+  "metricDistance_01": {
+    "function": "geof:metricDistance",
+    "status": "reference-derived",
+    "comparison": "numeric-tolerance",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "literal",
+              "datatype": "xsd:double",
+              "value": 5.0
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Expected value derived from simple geometry properties or independent Shapely calculations; not yet cross-validated against a second reference.",
+    "absoluteTolerance": 1e-06
+  },
+  "distance_01": {
+    "function": "geof:distance",
+    "status": "reference-derived",
+    "comparison": "numeric-tolerance",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "literal",
+              "datatype": "xsd:double",
+              "value": 5.0
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Expected value derived from simple geometry properties or independent Shapely calculations; not yet cross-validated against a second reference.",
+    "absoluteTolerance": 1e-06
+  },
+  "envelope_01": {
+    "function": "geof:envelope",
+    "status": "reference-derived",
+    "comparison": "geometry-equality",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "literal",
+              "datatype": "geo:wktLiteral",
+              "value": "POLYGON ((-83.6 34.1, -83.2 34.1, -83.2 34.5, -83.6 34.5, -83.6 34.1))"
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Expected value derived from simple geometry properties or independent Shapely calculations; not yet cross-validated against a second reference."
+  },
+  "geometryType_01": {
+    "function": "geof:geometryType",
+    "status": "reference-derived",
+    "comparison": "rdf-value",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "uri",
+              "value": "http://www.opengis.net/ont/sf#Polygon"
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Expected value derived from simple geometry properties or independent Shapely calculations; not yet cross-validated against a second reference."
+  },
+  "intersection_01": {
+    "function": "geof:intersection",
+    "status": "reference-derived",
+    "comparison": "geometry-equality",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "literal",
+              "datatype": "geo:wktLiteral",
+              "value": "POLYGON ((-83.6 34.1, -83.6 34.3, -83.4 34.3, -83.4 34.1, -83.6 34.1))"
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Expected value derived from simple geometry properties or independent Shapely calculations; not yet cross-validated against a second reference."
+  },
+  "is3D_01": {
+    "function": "geof:is3D",
+    "status": "reference-derived",
+    "comparison": "rdf-value",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "literal",
+              "datatype": "xsd:boolean",
+              "value": true
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Expected value derived from simple geometry properties or independent Shapely calculations; not yet cross-validated against a second reference."
+  },
+  "isEmpty_01": {
+    "function": "geof:isEmpty",
+    "status": "reference-derived",
+    "comparison": "rdf-value",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "literal",
+              "datatype": "xsd:boolean",
+              "value": true
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Expected value derived from simple geometry properties or independent Shapely calculations; not yet cross-validated against a second reference."
+  },
+  "isMeasured_01": {
+    "function": "geof:isMeasured",
+    "status": "reference-derived",
+    "comparison": "rdf-value",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "literal",
+              "datatype": "xsd:boolean",
+              "value": true
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Expected value derived from simple geometry properties or independent Shapely calculations; not yet cross-validated against a second reference."
+  },
+  "isSimple_01": {
+    "function": "geof:isSimple",
+    "status": "reference-derived",
+    "comparison": "rdf-value",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "literal",
+              "datatype": "xsd:boolean",
+              "value": true
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Expected value derived from simple geometry properties or independent Shapely calculations; not yet cross-validated against a second reference."
+  },
+  "spatialDimension_01": {
+    "function": "geof:spatialDimension",
+    "status": "reference-derived",
+    "comparison": "rdf-value",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "literal",
+              "datatype": "xsd:integer",
+              "value": 2
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Expected value derived from simple geometry properties or independent Shapely calculations; not yet cross-validated against a second reference."
+  },
+  "symDifference_01": {
+    "function": "geof:symDifference",
+    "status": "reference-derived",
+    "comparison": "geometry-equality",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "literal",
+              "datatype": "geo:wktLiteral",
+              "value": "POLYGON ((-83.6 34.5, -83.2 34.5, -83.2 34.1, -83.4 34.1, -83.4 34.3, -83.6 34.3, -83.6 34.5))"
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Expected value derived from simple geometry properties or independent Shapely calculations; not yet cross-validated against a second reference."
+  },
+  "transform_01": {
+    "function": "geof:transform",
+    "status": "needs-oracle",
+    "comparison": "geometry-equality",
+    "acceptedResults": [],
+    "validationNote": "Do not claim an exact reference output without independently checking the specification, CRS/unit behavior, or algorithm-dependent geometry.",
+    "expectedResultPending": true
+  },
+  "union_01": {
+    "function": "geof:union",
+    "status": "reference-derived",
+    "comparison": "geometry-equality",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "literal",
+              "datatype": "geo:wktLiteral",
+              "value": "POLYGON ((-83.6 34.1, -83.6 34.3, -83.6 34.5, -83.2 34.5, -83.2 34.1, -83.4 34.1, -83.6 34.1))"
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Expected value derived from simple geometry properties or independent Shapely calculations; not yet cross-validated against a second reference."
+  },
+  "metricLength_01": {
+    "function": "geof:metricLength",
+    "status": "reference-derived",
+    "comparison": "numeric-tolerance",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "literal",
+              "datatype": "xsd:double",
+              "value": 5.0
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Expected value derived from simple geometry properties or independent Shapely calculations; not yet cross-validated against a second reference.",
+    "absoluteTolerance": 1e-06
+  },
+  "length_01": {
+    "function": "geof:length",
+    "status": "reference-derived",
+    "comparison": "numeric-tolerance",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "literal",
+              "datatype": "xsd:double",
+              "value": 5.0
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Expected value derived from simple geometry properties or independent Shapely calculations; not yet cross-validated against a second reference.",
+    "absoluteTolerance": 1e-06
+  },
+  "metricPerimeter_01": {
+    "function": "geof:metricPerimeter",
+    "status": "reference-derived",
+    "comparison": "numeric-tolerance",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "literal",
+              "datatype": "xsd:double",
+              "value": 40.0
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Expected value derived from simple geometry properties or independent Shapely calculations; not yet cross-validated against a second reference.",
+    "absoluteTolerance": 1e-06
+  },
+  "perimeter_01": {
+    "function": "geof:perimeter",
+    "status": "reference-derived",
+    "comparison": "numeric-tolerance",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "literal",
+              "datatype": "xsd:double",
+              "value": 40.0
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Expected value derived from simple geometry properties or independent Shapely calculations; not yet cross-validated against a second reference.",
+    "absoluteTolerance": 1e-06
+  },
+  "metricArea_01": {
+    "function": "geof:metricArea",
+    "status": "reference-derived",
+    "comparison": "numeric-tolerance",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "literal",
+              "datatype": "xsd:double",
+              "value": 100.0
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Expected value derived from simple geometry properties or independent Shapely calculations; not yet cross-validated against a second reference.",
+    "absoluteTolerance": 1e-06
+  },
+  "area_01": {
+    "function": "geof:area",
+    "status": "reference-derived",
+    "comparison": "numeric-tolerance",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "literal",
+              "datatype": "xsd:double",
+              "value": 0.16
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Expected value derived from simple geometry properties or independent Shapely calculations; not yet cross-validated against a second reference.",
+    "absoluteTolerance": 1e-06
+  },
+  "geometryN_01": {
+    "function": "geof:geometryN",
+    "status": "needs-verification",
+    "comparison": "geometry-equality",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "literal",
+              "datatype": "geo:wktLiteral",
+              "value": "POINT (0 0)"
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Assumes 1-based indexing; verify with normative test/reference implementation."
+  },
+  "maxX_01": {
+    "function": "geof:maxX",
+    "status": "reference-derived",
+    "comparison": "numeric-tolerance",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "literal",
+              "datatype": "xsd:double",
+              "value": -83.2
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Expected value derived from simple geometry properties or independent Shapely calculations; not yet cross-validated against a second reference.",
+    "absoluteTolerance": 1e-06
+  },
+  "maxY_01": {
+    "function": "geof:maxY",
+    "status": "reference-derived",
+    "comparison": "numeric-tolerance",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "literal",
+              "datatype": "xsd:double",
+              "value": 34.5
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Expected value derived from simple geometry properties or independent Shapely calculations; not yet cross-validated against a second reference.",
+    "absoluteTolerance": 1e-06
+  },
+  "maxZ_01": {
+    "function": "geof:maxZ",
+    "status": "reference-derived",
+    "comparison": "numeric-tolerance",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "literal",
+              "datatype": "xsd:double",
+              "value": 9.0
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Expected value derived from simple geometry properties or independent Shapely calculations; not yet cross-validated against a second reference.",
+    "absoluteTolerance": 1e-06
+  },
+  "minX_01": {
+    "function": "geof:minX",
+    "status": "reference-derived",
+    "comparison": "numeric-tolerance",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "literal",
+              "datatype": "xsd:double",
+              "value": -83.6
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Expected value derived from simple geometry properties or independent Shapely calculations; not yet cross-validated against a second reference.",
+    "absoluteTolerance": 1e-06
+  },
+  "minY_01": {
+    "function": "geof:minY",
+    "status": "reference-derived",
+    "comparison": "numeric-tolerance",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "literal",
+              "datatype": "xsd:double",
+              "value": 34.1
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Expected value derived from simple geometry properties or independent Shapely calculations; not yet cross-validated against a second reference.",
+    "absoluteTolerance": 1e-06
+  },
+  "minZ_01": {
+    "function": "geof:minZ",
+    "status": "reference-derived",
+    "comparison": "numeric-tolerance",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "literal",
+              "datatype": "xsd:double",
+              "value": 2.0
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Expected value derived from simple geometry properties or independent Shapely calculations; not yet cross-validated against a second reference.",
+    "absoluteTolerance": 1e-06
+  },
+  "numGeometries_01": {
+    "function": "geof:numGeometries",
+    "status": "reference-derived",
+    "comparison": "rdf-value",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "literal",
+              "datatype": "xsd:integer",
+              "value": 2
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Expected value derived from simple geometry properties or independent Shapely calculations; not yet cross-validated against a second reference."
+  },
+  "aggBoundingBox_01": {
+    "function": "geof:aggBoundingBox",
+    "status": "reference-derived",
+    "comparison": "geometry-equality",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "literal",
+              "datatype": "geo:wktLiteral",
+              "value": "POLYGON ((3 0, 3 4, 0 4, 0 0, 3 0))"
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Expected value derived from simple geometry properties or independent Shapely calculations; not yet cross-validated against a second reference."
+  },
+  "aggBoundingCircle_01": {
+    "function": "geof:aggBoundingCircle",
+    "status": "needs-oracle",
+    "comparison": "geometry-equality",
+    "acceptedResults": [],
+    "validationNote": "Do not claim an exact reference output without independently checking the specification, CRS/unit behavior, or algorithm-dependent geometry.",
+    "expectedResultPending": true
+  },
+  "aggCentroid_01": {
+    "function": "geof:aggCentroid",
+    "status": "needs-verification",
+    "comparison": "geometry-equality",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "literal",
+              "datatype": "geo:wktLiteral",
+              "value": "POINT (1.5 2)"
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Centroid for two points; confirm aggregate semantics and implementation-specific behavior."
+  },
+  "aggConcaveHull_01": {
+    "function": "geof:aggConcaveHull",
+    "status": "needs-oracle",
+    "comparison": "geometry-equality",
+    "acceptedResults": [],
+    "validationNote": "Do not claim an exact reference output without independently checking the specification, CRS/unit behavior, or algorithm-dependent geometry.",
+    "expectedResultPending": true
+  },
+  "aggConvexHull_01": {
+    "function": "geof:aggConvexHull",
+    "status": "reference-derived",
+    "comparison": "geometry-equality",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "literal",
+              "datatype": "geo:wktLiteral",
+              "value": "LINESTRING (0 0, 3 4)"
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Expected value derived from simple geometry properties or independent Shapely calculations; not yet cross-validated against a second reference."
+  },
+  "aggUnion_01": {
+    "function": "geof:aggUnion",
+    "status": "reference-derived",
+    "comparison": "geometry-equality",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "result": {
+              "type": "literal",
+              "datatype": "geo:wktLiteral",
+              "value": "LINESTRING (0 0, 3 4)"
+            }
+          }
+        ]
+      }
+    ],
+    "validationNote": "Expected value derived from simple geometry properties or independent Shapely calculations; not yet cross-validated against a second reference."
+  }
+}

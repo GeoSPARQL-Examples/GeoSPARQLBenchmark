@@ -1,0 +1,13 @@
+@prefix my: <http://example.org/ApplicationSchema#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+my:PlaceOfInterest
+    rdfs:subClassOf geo:Feature .
+
+my:hasExactGeometry
+    rdfs:subPropertyOf geo:hasGeometry ;
+    rdfs:subPropertyOf geo:hasDefaultGeometry .
+
+my:hasPointGeometry
+    rdfs:subPropertyOf geo:hasGeometry .

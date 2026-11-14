@@ -1,0 +1,18 @@
+{
+  "boundary_01": {
+    "comparison": "geometry-equality",
+    "acceptedResults": [
+      {
+        "bindings": [
+          {
+            "boundary": {
+              "type": "literal",
+              "datatype": "geo:wktLiteral",
+              "value": "LINESTRING(-83.6 34.1,-83.2 34.1,-83.2 34.5,-83.6 34.5,-83.6 34.1)"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

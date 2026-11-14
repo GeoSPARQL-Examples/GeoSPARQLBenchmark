@@ -1,0 +1,9 @@
+mappingId  lit_...
+target     <{s}> <http://www.opengis.net/ont/geosparql#asWKT> "{v}"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .
+source     SELECT subject_iri AS s, lexical_value AS v
+           FROM geobench.literal_fact
+           WHERE predicate_iri =
+             'http://www.opengis.net/ont/geosparql#asWKT'
+           AND datatype_iri =
+             'http://www.opengis.net/ont/geosparql#wktLiteral'
+           AND language_tag = ''

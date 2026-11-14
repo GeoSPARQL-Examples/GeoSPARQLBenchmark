@@ -1,0 +1,34 @@
+@prefix my: <http://example.org/ApplicationSchema#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix sf: <http://www.opengis.net/ont/sf#> .
+
+my:N a geo:Feature ; geo:hasGeometry my:NExactGeom ; geo:hasDefaultGeometry my:NExactGeom .
+my:NExactGeom a geo:Geometry ; geo:asWKT "<http://www.opengis.net/def/crs/EPSG/0/3857> POINT Z (2 3 7)"^^geo:wktLiteral .
+
+my:O a geo:Feature ; geo:hasGeometry my:OExactGeom ; geo:hasDefaultGeometry my:OExactGeom .
+my:OExactGeom a geo:Geometry ; geo:asWKT "<http://www.opengis.net/def/crs/EPSG/0/3857> LINESTRING Z (0 0 2, 3 4 9)"^^geo:wktLiteral .
+
+my:P a geo:Feature ; geo:hasGeometry my:PExactGeom ; geo:hasDefaultGeometry my:PExactGeom .
+my:PExactGeom a geo:Geometry ; geo:asWKT "<http://www.opengis.net/def/crs/EPSG/0/3857> MULTIPOINT ((0 0),(3 4))"^^geo:wktLiteral .
+
+my:Q a geo:Feature ; geo:hasGeometry my:QExactGeom ; geo:hasDefaultGeometry my:QExactGeom .
+my:QExactGeom a geo:Geometry ; geo:asWKT "<http://www.opengis.net/def/crs/EPSG/0/3857> POLYGON ((0 0,10 0,10 10,0 10,0 0))"^^geo:wktLiteral .
+
+my:R a geo:Feature ; geo:hasGeometry my:RExactGeom ; geo:hasDefaultGeometry my:RExactGeom .
+my:RExactGeom a geo:Geometry ; geo:asWKT "<http://www.opengis.net/def/crs/EPSG/0/3857> POINT (0 0)"^^geo:wktLiteral .
+
+my:S a geo:Feature ; geo:hasGeometry my:SExactGeom ; geo:hasDefaultGeometry my:SExactGeom .
+my:SExactGeom a geo:Geometry ; geo:asWKT "<http://www.opengis.net/def/crs/EPSG/0/3857> POINT (3 4)"^^geo:wktLiteral .
+
+my:T a geo:Feature ; geo:hasGeometry my:TExactGeom ; geo:hasDefaultGeometry my:TExactGeom .
+my:TExactGeom a geo:Geometry ; geo:asWKT "<http://www.opengis.net/def/crs/EPSG/0/3857> LINESTRING (0 0,3 4)"^^geo:wktLiteral .
+
+my:U a geo:Feature ; geo:hasGeometry my:UExactGeom ; geo:hasDefaultGeometry my:UExactGeom .
+my:UExactGeom a geo:Geometry ; geo:asWKT "<http://www.opengis.net/def/crs/EPSG/0/3857> POLYGON ((0 0,4 0,4 4,2 2,0 4,0 0))"^^geo:wktLiteral .
+
+my:V a geo:Feature ; geo:hasGeometry my:VExactGeom ; geo:hasDefaultGeometry my:VExactGeom .
+my:VExactGeom a geo:Geometry ; geo:asWKT "<http://www.opengis.net/def/crs/EPSG/0/3857> POINT M (1 2 5)"^^geo:wktLiteral .
+
+my:W a geo:Feature ; geo:hasGeometry my:WExactGeom ; geo:hasDefaultGeometry my:WExactGeom .
+my:WExactGeom a geo:Geometry ; geo:asWKT "<http://www.opengis.net/def/crs/EPSG/0/3857> MULTIPOLYGON (((0 0,2 0,2 2,0 2,0 0)),((4 0,6 0,6 2,4 2,4 0)))"^^geo:wktLiteral .
+
