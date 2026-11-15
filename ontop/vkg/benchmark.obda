@@ -1,9 +1,248 @@
-mappingId  lit_...
-target     <{s}> <http://www.opengis.net/ont/geosparql#asWKT> "{v}"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .
+[PrefixDeclaration]
+my:     http://example.org/ApplicationSchema#
+geo:    http://www.opengis.net/ont/geosparql#
+sf:     http://www.opengis.net/ont/sf#
+rdf:    http://www.w3.org/1999/02/22-rdf-syntax-ns#
+xsd:    http://www.w3.org/2001/XMLSchema#
+
+[MappingDeclaration] @collection [[
+
+mappingId  iri_1
+target     <{s}> my:hasExactGeometry <{o}> .
+source     SELECT subject_iri AS s, object_iri AS o
+           FROM geobench.iri_fact
+           WHERE predicate_iri = 'http://example.org/ApplicationSchema#hasExactGeometry'
+
+mappingId  iri_2
+target     <{s}> my:hasPointGeometry <{o}> .
+source     SELECT subject_iri AS s, object_iri AS o
+           FROM geobench.iri_fact
+           WHERE predicate_iri = 'http://example.org/ApplicationSchema#hasPointGeometry'
+
+mappingId  iri_3
+target     <{s}> geo:ehContains <{o}> .
+source     SELECT subject_iri AS s, object_iri AS o
+           FROM geobench.iri_fact
+           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#ehContains'
+
+mappingId  iri_4
+target     <{s}> geo:ehCoveredBy <{o}> .
+source     SELECT subject_iri AS s, object_iri AS o
+           FROM geobench.iri_fact
+           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#ehCoveredBy'
+
+mappingId  iri_5
+target     <{s}> geo:ehCovers <{o}> .
+source     SELECT subject_iri AS s, object_iri AS o
+           FROM geobench.iri_fact
+           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#ehCovers'
+
+mappingId  iri_6
+target     <{s}> geo:ehDisjoint <{o}> .
+source     SELECT subject_iri AS s, object_iri AS o
+           FROM geobench.iri_fact
+           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#ehDisjoint'
+
+mappingId  iri_7
+target     <{s}> geo:ehEquals <{o}> .
+source     SELECT subject_iri AS s, object_iri AS o
+           FROM geobench.iri_fact
+           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#ehEquals'
+
+mappingId  iri_8
+target     <{s}> geo:ehInside <{o}> .
+source     SELECT subject_iri AS s, object_iri AS o
+           FROM geobench.iri_fact
+           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#ehInside'
+
+mappingId  iri_9
+target     <{s}> geo:ehMeet <{o}> .
+source     SELECT subject_iri AS s, object_iri AS o
+           FROM geobench.iri_fact
+           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#ehMeet'
+
+mappingId  iri_10
+target     <{s}> geo:ehOverlap <{o}> .
+source     SELECT subject_iri AS s, object_iri AS o
+           FROM geobench.iri_fact
+           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#ehOverlap'
+
+mappingId  iri_11
+target     <{s}> geo:hasDefaultGeometry <{o}> .
+source     SELECT subject_iri AS s, object_iri AS o
+           FROM geobench.iri_fact
+           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#hasDefaultGeometry'
+
+mappingId  iri_12
+target     <{s}> geo:hasGeometry <{o}> .
+source     SELECT subject_iri AS s, object_iri AS o
+           FROM geobench.iri_fact
+           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#hasGeometry'
+
+mappingId  iri_13
+target     <{s}> geo:rcc8dc <{o}> .
+source     SELECT subject_iri AS s, object_iri AS o
+           FROM geobench.iri_fact
+           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#rcc8dc'
+
+mappingId  iri_14
+target     <{s}> geo:rcc8ec <{o}> .
+source     SELECT subject_iri AS s, object_iri AS o
+           FROM geobench.iri_fact
+           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#rcc8ec'
+
+mappingId  iri_15
+target     <{s}> geo:rcc8eq <{o}> .
+source     SELECT subject_iri AS s, object_iri AS o
+           FROM geobench.iri_fact
+           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#rcc8eq'
+
+mappingId  iri_16
+target     <{s}> geo:rcc8ntpp <{o}> .
+source     SELECT subject_iri AS s, object_iri AS o
+           FROM geobench.iri_fact
+           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#rcc8ntpp'
+
+mappingId  iri_17
+target     <{s}> geo:rcc8ntppi <{o}> .
+source     SELECT subject_iri AS s, object_iri AS o
+           FROM geobench.iri_fact
+           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#rcc8ntppi'
+
+mappingId  iri_18
+target     <{s}> geo:rcc8po <{o}> .
+source     SELECT subject_iri AS s, object_iri AS o
+           FROM geobench.iri_fact
+           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#rcc8po'
+
+mappingId  iri_19
+target     <{s}> geo:rcc8tpp <{o}> .
+source     SELECT subject_iri AS s, object_iri AS o
+           FROM geobench.iri_fact
+           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#rcc8tpp'
+
+mappingId  iri_20
+target     <{s}> geo:rcc8tppi <{o}> .
+source     SELECT subject_iri AS s, object_iri AS o
+           FROM geobench.iri_fact
+           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#rcc8tppi'
+
+mappingId  iri_21
+target     <{s}> geo:sfContains <{o}> .
+source     SELECT subject_iri AS s, object_iri AS o
+           FROM geobench.iri_fact
+           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#sfContains'
+
+mappingId  iri_22
+target     <{s}> geo:sfCrosses <{o}> .
+source     SELECT subject_iri AS s, object_iri AS o
+           FROM geobench.iri_fact
+           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#sfCrosses'
+
+mappingId  iri_23
+target     <{s}> geo:sfDisjoint <{o}> .
+source     SELECT subject_iri AS s, object_iri AS o
+           FROM geobench.iri_fact
+           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#sfDisjoint'
+
+mappingId  iri_24
+target     <{s}> geo:sfEquals <{o}> .
+source     SELECT subject_iri AS s, object_iri AS o
+           FROM geobench.iri_fact
+           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#sfEquals'
+
+mappingId  iri_25
+target     <{s}> geo:sfIntersects <{o}> .
+source     SELECT subject_iri AS s, object_iri AS o
+           FROM geobench.iri_fact
+           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#sfIntersects'
+
+mappingId  iri_26
+target     <{s}> geo:sfOverlaps <{o}> .
+source     SELECT subject_iri AS s, object_iri AS o
+           FROM geobench.iri_fact
+           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#sfOverlaps'
+
+mappingId  iri_27
+target     <{s}> geo:sfTouches <{o}> .
+source     SELECT subject_iri AS s, object_iri AS o
+           FROM geobench.iri_fact
+           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#sfTouches'
+
+mappingId  iri_28
+target     <{s}> geo:sfWithin <{o}> .
+source     SELECT subject_iri AS s, object_iri AS o
+           FROM geobench.iri_fact
+           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#sfWithin'
+
+mappingId  iri_29
+target     <{s}> rdf:type <{o}> .
+source     SELECT subject_iri AS s, object_iri AS o
+           FROM geobench.iri_fact
+           WHERE predicate_iri = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'
+
+mappingId  lit_30
+target     <{s}> geo:asGML "{v}"^^geo:gmlLiteral .
 source     SELECT subject_iri AS s, lexical_value AS v
            FROM geobench.literal_fact
-           WHERE predicate_iri =
-             'http://www.opengis.net/ont/geosparql#asWKT'
-           AND datatype_iri =
-             'http://www.opengis.net/ont/geosparql#wktLiteral'
-           AND language_tag = ''
+           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#asGML'
+             AND datatype_iri = 'http://www.opengis.net/ont/geosparql#gmlLiteral'
+             AND language_tag = ''
+
+mappingId  lit_31
+target     <{s}> geo:asWKT "{v}"^^geo:wktLiteral .
+source     SELECT subject_iri AS s, lexical_value AS v
+           FROM geobench.literal_fact
+           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#asWKT'
+             AND datatype_iri = 'http://www.opengis.net/ont/geosparql#wktLiteral'
+             AND language_tag = ''
+
+mappingId  lit_32
+target     <{s}> geo:coordinateDimension "{v}"^^xsd:integer .
+source     SELECT subject_iri AS s, lexical_value AS v
+           FROM geobench.literal_fact
+           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#coordinateDimension'
+             AND datatype_iri = 'http://www.w3.org/2001/XMLSchema#integer'
+             AND language_tag = ''
+
+mappingId  lit_33
+target     <{s}> geo:dimension "{v}"^^xsd:integer .
+source     SELECT subject_iri AS s, lexical_value AS v
+           FROM geobench.literal_fact
+           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#dimension'
+             AND datatype_iri = 'http://www.w3.org/2001/XMLSchema#integer'
+             AND language_tag = ''
+
+mappingId  lit_34
+target     <{s}> geo:hasSerialization "{v}"^^geo:wktLiteral .
+source     SELECT subject_iri AS s, lexical_value AS v
+           FROM geobench.literal_fact
+           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#hasSerialization'
+             AND datatype_iri = 'http://www.opengis.net/ont/geosparql#wktLiteral'
+             AND language_tag = ''
+
+mappingId  lit_35
+target     <{s}> geo:isEmpty "{v}"^^xsd:boolean .
+source     SELECT subject_iri AS s, lexical_value AS v
+           FROM geobench.literal_fact
+           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#isEmpty'
+             AND datatype_iri = 'http://www.w3.org/2001/XMLSchema#boolean'
+             AND language_tag = ''
+
+mappingId  lit_36
+target     <{s}> geo:isSimple "{v}"^^xsd:boolean .
+source     SELECT subject_iri AS s, lexical_value AS v
+           FROM geobench.literal_fact
+           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#isSimple'
+             AND datatype_iri = 'http://www.w3.org/2001/XMLSchema#boolean'
+             AND language_tag = ''
+
+mappingId  lit_37
+target     <{s}> geo:spatialDimension "{v}"^^xsd:integer .
+source     SELECT subject_iri AS s, lexical_value AS v
+           FROM geobench.literal_fact
+           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#spatialDimension'
+             AND datatype_iri = 'http://www.w3.org/2001/XMLSchema#integer'
+             AND language_tag = ''
+
+]]
