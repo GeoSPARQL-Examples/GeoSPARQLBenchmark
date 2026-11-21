@@ -1,49 +1,63 @@
+x-ontop: &ontop
+  image: albulenpano/geosparql_1.1:v8
+  depends_on:
+    benchmarkdb:
+      condition: service_healthy
+  volumes:
+    - ./vkg:/opt/ontop/input:ro
+    - ./jdbc:/opt/ontop/jdbc:ro
+
+x-ontop-env: &ontop-env
+  ONTOP_ONTOLOGY_FILE: /opt/ontop/input/geobench.ttl
+  ONTOP_PROPERTIES_FILE: /opt/ontop/input/benchmark.properties
+
 services:
   benchmarkdb:
     container_name: benchmarkdb
     image: postgis/postgis:16-3.5
-
+    env_file: .env
+    volumes:
+      # - benchmark_pgdata:/var/lib/postgresql/data
+      - ./db_import:/docker-entrypoint-initdb.d:ro
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: benchmark_db
-
     ports:
       - "${MAPPED_POSTGRES_PORT}:5432"
-
-    volumes:
-      - benchmark_pgdata:/var/lib/postgresql/data
-      - ./db_import:/docker-entrypoint-initdb.d:ro
-
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -h benchmarkdb" ]
       interval: 10s
       timeout: 5s
       retries: 5
 
-  ontop:
-    container_name: ontop
-    image: albulenpano/geosparql_1.1:v8
-    restart: unless-stopped
+  ontop-crs84:
+    <<: *ontop
+    environment: {<<: *ontop-env, ONTOP_MAPPING_FILE: /opt/ontop/input/mappings/crs84.obda}
+    ports: ["8081:8080"]
 
-    environment:
-      ONTOP_ONTOLOGY_FILE: /opt/ontop/input/geobench.ttl
-      ONTOP_MAPPING_FILE: /opt/ontop/input/benchmark.obda
-      ONTOP_PROPERTIES_FILE: /opt/ontop/input/benchmark.properties
-      ONTOP_CORS_ALLOWED_ORIGINS: "*"
-      ONTOP_DEV_MODE: "true"
-      ONTOP_LOG_LEVEL: "DEBUG"
+  ontop-epsg3857:
+    <<: *ontop
+    environment: {<<: *ontop-env, ONTOP_MAPPING_FILE: /opt/ontop/input/mappings/epsg3857.obda}
+    ports: ["8082:8080"]
 
+  ontop-implicit-crs84:
+    <<: *ontop
+    environment: {<<: *ontop-env, ONTOP_MAPPING_FILE: /opt/ontop/input/mappings/implicit-crs84.obda}
+    ports: ["8083:8080"]
+
+  ontop-empty-lexical:
+    <<: *ontop
+    environment: {<<: *ontop-env, ONTOP_MAPPING_FILE: /opt/ontop/input/mappings/empty-lexical.obda}
+    ports: ["8084:8080"]
+
+  benchmark:
+    profiles: ["benchmark"]
+    image: python:3.12-slim
+    working_dir: /work/benchmark
     volumes:
-      - ./vkg:/opt/ontop/input:ro
-      - ./jdbc:/opt/ontop/jdbc:ro
-
-    ports:
-      - "${SERVER_PORT:-8080}:8080"
-
-    depends_on:
-      benchmarkdb:
-        condition: service_healthy
-
-volumes:
-  benchmark_pgdata:
+      - ./vkg:/work
+    environment:
+      ENDPOINT_TEMPLATE: "http://ontop-{config}:8080/sparql"
+    depends_on: [ontop-crs84, ontop-epsg3857, ontop-implicit-crs84, ontop-empty-lexical]
+    command: sh -c "pip install -q requests shapely && python run.py"

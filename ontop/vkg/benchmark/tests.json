@@ -1,7 +1,7 @@
 {
   "tests": [
     {
-      "id": "geof-maxX-01",
+      "id": "maxX-01",
       "query": "geof-maxX.rq",
       "configurations": [
         "crs84",
@@ -9,7 +9,7 @@
       ]
     },
     {
-      "id": "geof-area-01",
+      "id": "area-01",
       "query": "geof-area.rq",
       "configurations": [
         "crs84",
@@ -17,7 +17,7 @@
       ]
     },
     {
-      "id": "geof-empty-01",
+      "id": "empty-01",
       "query": "geof-empty.rq",
       "configurations": [
         "empty-lexical"
