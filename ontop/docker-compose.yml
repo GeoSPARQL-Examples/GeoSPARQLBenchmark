@@ -1,5 +1,5 @@
 x-ontop: &ontop
-  image: albulenpano/geosparql_1.1:v8
+  image: albulenpano/geosparql_1.1:v9
   depends_on:
     benchmarkdb:
       condition: service_healthy
@@ -52,12 +52,14 @@ services:
     ports: ["8084:8080"]
 
   benchmark:
-    profiles: ["benchmark"]
+    profiles: [ "benchmark" ]
     image: python:3.12-slim
     working_dir: /work/benchmark
     volumes:
       - ./vkg:/work
+      - ./queries:/queries:ro
     environment:
       ENDPOINT_TEMPLATE: "http://ontop-{config}:8080/sparql"
-    depends_on: [ontop-crs84, ontop-epsg3857, ontop-implicit-crs84, ontop-empty-lexical]
-    command: sh -c "pip install -q requests shapely && python run.py"
+      QUERIES_DIR: /queries
+    depends_on: [ ontop-crs84, ontop-epsg3857, ontop-implicit-crs84, ontop-empty-lexical ]
+    command: sh -c "pip install -q --root-user-action=ignore requests shapely && python run.py"

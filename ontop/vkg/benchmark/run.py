@@ -51,12 +51,26 @@ def split_crs(v):
     return CRS84, v  # implicit CRS = CRS84 per GeoSPARQL
 
 
+import re
+from shapely.geometry import Polygon
+
+def load_wkt(text):
+    try:
+        return shapely_wkt.loads(text)
+    except Exception:
+        # Ontop can emit rings whose last point differs from the first by float noise
+        if text.strip().upper().startswith("POLYGON"):
+            nums = [float(x) for x in re.findall(r"-?\d+\.?\d*(?:[eE][-+]?\d+)?", text)]
+            return Polygon(list(zip(nums[0::2], nums[1::2])))  # Polygon() closes the ring
+        raise
+
 def geom_equal(a, e, tol):
     ca, wa = split_crs(a)
     ce, we = split_crs(e)
     if ca != ce:
         return False
-    ga, ge = shapely_wkt.loads(wa), shapely_wkt.loads(we)
+    #ga, ge = shapely_wkt.loads(wa), shapely_wkt.loads(we)
+    ga, ge = load_wkt(wa), load_wkt(we)
     if ga.is_empty and ge.is_empty:
         return True
     return ga.equals(ge) or ga.normalize().equals_exact(ge.normalize(), tol)
@@ -72,6 +86,13 @@ def term_equal(a, e, mode, tol):
             return abs(float(a["value"]) - float(e["value"])) <= tol
         if mode == "geometry-equality":
             return geom_equal(a["value"], e["value"], tol)
+        if mode == "geometry-hausdorff":
+            ca, wa = split_crs(a["value"])
+            ce, we = split_crs(e["value"])
+            if ca != ce:
+                return False
+            #return shapely_wkt.loads(wa).hausdorff_distance(shapely_wkt.loads(we)) <= tol
+            return load_wkt(wa).hausdorff_distance(load_wkt(we)) <= tol
     except Exception:
         return False
     return a["value"] == e["value"]
@@ -121,7 +142,7 @@ def evaluate(exp, actual, error):
 
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument("--queries-dir", default=str(HERE.parent / "queries"))
+    p.add_argument("--queries-dir", default=os.environ.get("QUERIES_DIR", str(HERE.parent / "queries")))
     p.add_argument("--expected", default=str(HERE / "expected-results.json"))
     p.add_argument("--output", default=str(HERE / "results" / "latest.json"))
     p.add_argument("--endpoint-template",

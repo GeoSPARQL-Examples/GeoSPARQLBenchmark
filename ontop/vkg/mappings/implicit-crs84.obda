@@ -216,8 +216,8 @@ target     <{s}> geo:hasSerialization "{v}"^^geo:wktLiteral .
 source     SELECT subject_iri AS s, wkt AS v
            FROM geobench.hasserialization_crs84
 
-mappingId  lit_40
+mappingId  lit_39
 target     <{s}> geo:asWKT "{v}"^^geo:wktLiteral .
 source     SELECT subject_iri AS s, wkt AS v
-           FROM geobench.aswkt_empty_lexical
+          FROM geobench.aswkt_implicit_crs84
 ]]

@@ -1,26 +1,304 @@
 {
   "tests": [
     {
-      "id": "maxX-01",
-      "query": "geof-maxX.rq",
+      "id": "boundary_01",
+      "query": "boundary_01.rq",
       "configurations": [
-        "crs84",
+        "crs84"
+      ]
+    },
+    {
+      "id": "boundingCircle_01",
+      "query": "boundingCircle_01.rq",
+      "configurations": [
         "epsg3857"
       ]
     },
     {
-      "id": "area-01",
-      "query": "geof-area.rq",
+      "id": "metricBuffer_01",
+      "query": "metricBuffer_01.rq",
       "configurations": [
-        "crs84",
         "epsg3857"
       ]
     },
     {
-      "id": "empty-01",
-      "query": "geof-empty.rq",
+      "id": "buffer_01",
+      "query": "buffer_01.rq",
       "configurations": [
-        "empty-lexical"
+        "epsg3857"
+      ]
+    },
+    {
+      "id": "centroid_01",
+      "query": "centroid_01.rq",
+      "configurations": [
+        "crs84"
+      ]
+    },
+    {
+      "id": "convexHull_01",
+      "query": "convexHull_01.rq",
+      "configurations": [
+        "epsg3857"
+      ]
+    },
+    {
+      "id": "concaveHull_01",
+      "query": "concaveHull_01.rq",
+      "configurations": [
+        "epsg3857"
+      ]
+    },
+    {
+      "id": "coordinateDimension_01",
+      "query": "coordinateDimension_01.rq",
+      "configurations": [
+        "epsg3857"
+      ]
+    },
+    {
+      "id": "difference_01",
+      "query": "difference_01.rq",
+      "configurations": [
+        "crs84"
+      ]
+    },
+    {
+      "id": "dimension_01",
+      "query": "dimension_01.rq",
+      "configurations": [
+        "crs84"
+      ]
+    },
+    {
+      "id": "metricDistance_01",
+      "query": "metricDistance_01.rq",
+      "configurations": [
+        "epsg3857"
+      ]
+    },
+    {
+      "id": "distance_01",
+      "query": "distance_01.rq",
+      "configurations": [
+        "epsg3857"
+      ]
+    },
+    {
+      "id": "envelope_01",
+      "query": "envelope_01.rq",
+      "configurations": [
+        "crs84"
+      ]
+    },
+    {
+      "id": "geometryType_01",
+      "query": "geometryType_01.rq",
+      "configurations": [
+        "crs84"
+      ]
+    },
+    {
+      "id": "intersection_01",
+      "query": "intersection_01.rq",
+      "configurations": [
+        "crs84"
+      ]
+    },
+    {
+      "id": "is3D_01",
+      "query": "is3D_01.rq",
+      "configurations": [
+        "epsg3857"
+      ]
+    },
+    {
+      "id": "isEmpty_01",
+      "query": "isEmpty_01.rq",
+      "configurations": [
+        "implicit-crs84"
+      ]
+    },
+    {
+      "id": "isMeasured_01",
+      "query": "isMeasured_01.rq",
+      "configurations": [
+        "epsg3857"
+      ]
+    },
+    {
+      "id": "isSimple_01",
+      "query": "isSimple_01.rq",
+      "configurations": [
+        "crs84"
+      ]
+    },
+    {
+      "id": "spatialDimension_01",
+      "query": "spatialDimension_01.rq",
+      "configurations": [
+        "crs84"
+      ]
+    },
+    {
+      "id": "symDifference_01",
+      "query": "symDifference_01.rq",
+      "configurations": [
+        "crs84"
+      ]
+    },
+    {
+      "id": "transform_01",
+      "query": "transform_01.rq",
+      "configurations": [
+        "epsg3857"
+      ]
+    },
+    {
+      "id": "union_01",
+      "query": "union_01.rq",
+      "configurations": [
+        "crs84"
+      ]
+    },
+    {
+      "id": "metricLength_01",
+      "query": "metricLength_01.rq",
+      "configurations": [
+        "epsg3857"
+      ]
+    },
+    {
+      "id": "length_01",
+      "query": "length_01.rq",
+      "configurations": [
+        "epsg3857"
+      ]
+    },
+    {
+      "id": "metricPerimeter_01",
+      "query": "metricPerimeter_01.rq",
+      "configurations": [
+        "epsg3857"
+      ]
+    },
+    {
+      "id": "perimeter_01",
+      "query": "perimeter_01.rq",
+      "configurations": [
+        "epsg3857"
+      ]
+    },
+    {
+      "id": "metricArea_01",
+      "query": "metricArea_01.rq",
+      "configurations": [
+        "epsg3857"
+      ]
+    },
+    {
+      "id": "area_01",
+      "query": "area_01.rq",
+      "configurations": [
+        "crs84"
+      ]
+    },
+    {
+      "id": "geometryN_01",
+      "query": "geometryN_01.rq",
+      "configurations": [
+        "epsg3857"
+      ]
+    },
+    {
+      "id": "maxX_01",
+      "query": "maxX_01.rq",
+      "configurations": [
+        "crs84"
+      ]
+    },
+    {
+      "id": "maxY_01",
+      "query": "maxY_01.rq",
+      "configurations": [
+        "crs84"
+      ]
+    },
+    {
+      "id": "maxZ_01",
+      "query": "maxZ_01.rq",
+      "configurations": [
+        "epsg3857"
+      ]
+    },
+    {
+      "id": "minX_01",
+      "query": "minX_01.rq",
+      "configurations": [
+        "crs84"
+      ]
+    },
+    {
+      "id": "minY_01",
+      "query": "minY_01.rq",
+      "configurations": [
+        "crs84"
+      ]
+    },
+    {
+      "id": "minZ_01",
+      "query": "minZ_01.rq",
+      "configurations": [
+        "epsg3857"
+      ]
+    },
+    {
+      "id": "numGeometries_01",
+      "query": "numGeometries_01.rq",
+      "configurations": [
+        "epsg3857"
+      ]
+    },
+    {
+      "id": "aggBoundingBox_01",
+      "query": "aggBoundingBox_01.rq",
+      "configurations": [
+        "epsg3857"
+      ]
+    },
+    {
+      "id": "aggBoundingCircle_01",
+      "query": "aggBoundingCircle_01.rq",
+      "configurations": [
+        "epsg3857"
+      ]
+    },
+    {
+      "id": "aggCentroid_01",
+      "query": "aggCentroid_01.rq",
+      "configurations": [
+        "epsg3857"
+      ]
+    },
+    {
+      "id": "aggConcaveHull_01",
+      "query": "aggConcaveHull_01.rq",
+      "configurations": [
+        "epsg3857"
+      ]
+    },
+    {
+      "id": "aggConvexHull_01",
+      "query": "aggConvexHull_01.rq",
+      "configurations": [
+        "epsg3857"
+      ]
+    },
+    {
+      "id": "aggUnion_01",
+      "query": "aggUnion_01.rq",
+      "configurations": [
+        "epsg3857"
       ]
     }
   ]

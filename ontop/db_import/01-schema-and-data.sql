@@ -425,49 +425,33 @@ INSERT INTO geobench.aswkt_implicit_crs84 (subject_iri,wkt) VALUES
   ('http://example.org/ApplicationSchema#IExactGeom', 'LINESTRING EMPTY'),
   ('http://example.org/ApplicationSchema#IPointGeom', 'POINT EMPTY');
 
--- CREATE TABLE geobench.aswkt_epsg3857 (subject_iri TEXT PRIMARY KEY, wkt Geometry NOT NULL);
--- INSERT INTO geobench.aswkt_epsg3857 (subject_iri,wkt) VALUES
---   ('http://example.org/ApplicationSchema#NExactGeom', 'POINT Z (2 3 7)'),
---   ('http://example.org/ApplicationSchema#OExactGeom', 'LINESTRING Z (0 0 2, 3 4 9)'),
---   ('http://example.org/ApplicationSchema#PExactGeom', 'MULTIPOINT ((0 0),(3 4))'),
---   ('http://example.org/ApplicationSchema#QExactGeom', 'POLYGON ((0 0,10 0,10 10,0 10,0 0))'),
---   ('http://example.org/ApplicationSchema#RExactGeom', 'POINT (0 0)'),
---   ('http://example.org/ApplicationSchema#SExactGeom', 'POINT (3 4)'),
---   ('http://example.org/ApplicationSchema#TExactGeom', 'LINESTRING (0 0,3 4)'),
---   ('http://example.org/ApplicationSchema#UExactGeom', 'POLYGON ((0 0,4 0,4 4,2 2,0 4,0 0))'),
---   ('http://example.org/ApplicationSchema#VExactGeom', 'POINT M (1 2 5)'),
---   ('http://example.org/ApplicationSchema#WExactGeom', 'MULTIPOLYGON (((0 0,2 0,2 2,0 2,0 0)),((4 0,6 0,6 2,4 2,4 0)))');
 
--- ALTER TABLE geobench.iri_fact_default_geometry
---     ADD CONSTRAINT fk_geometry_1
---         FOREIGN KEY (object_iri)
---             REFERENCES geobench.aswkt_crs84(subject_iri);
+-- Generic RDF triples
+ALTER TABLE geobench.iri_fact
+    ADD CONSTRAINT pk_iri_fact
+        PRIMARY KEY (subject_iri, predicate_iri, object_iri);
 
--- ALTER TABLE geobench.iri_fact_default_geometry
---     ADD CONSTRAINT fk_geometry_2
---         FOREIGN KEY (object_iri)
---             REFERENCES geobench.aswkt_epsg3857(subject_iri);
+-- Geometry properties
+ALTER TABLE geobench.coordinatedimension
+    ADD CONSTRAINT pk_coordinatedimension
+        PRIMARY KEY (subject_iri);
 
--- CREATE TABLE geobench.geometry_all (
---                                        subject_iri TEXT PRIMARY KEY,
---                                        wkt geometry NOT NULL,
---                                        crs TEXT NOT NULL,
---                                        CONSTRAINT valid_crs
---                                            CHECK (crs IN ('CRS84', 'EPSG3857'))
--- );
---
--- INSERT INTO geobench.geometry_all (subject_iri, wkt, crs)
--- SELECT subject_iri, wkt, 'CRS84'
--- FROM geobench.aswkt_crs84
---
--- UNION ALL
---
--- SELECT subject_iri, wkt, 'EPSG3857'
--- FROM geobench.aswkt_epsg3857;
---
--- ALTER TABLE geobench.iri_fact_default_geometry
--- DROP CONSTRAINT fk_geometry_1;
---
+ALTER TABLE geobench.dimension
+    ADD CONSTRAINT pk_dimension
+        PRIMARY KEY (subject_iri);
+
+ALTER TABLE geobench.isempty
+    ADD CONSTRAINT pk_isempty
+        PRIMARY KEY (subject_iri);
+
+ALTER TABLE geobench.issimple
+    ADD CONSTRAINT pk_issimple
+        PRIMARY KEY (subject_iri);
+
+ALTER TABLE geobench.spatialdimension
+    ADD CONSTRAINT pk_spatialdimension
+        PRIMARY KEY (subject_iri);
+
 -- ALTER TABLE geobench.iri_fact_default_geometry
 --     ADD CONSTRAINT fk_geometry_all
 --         FOREIGN KEY (object_iri)
