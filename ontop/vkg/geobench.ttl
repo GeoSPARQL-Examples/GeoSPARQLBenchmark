@@ -1,0 +1,113 @@
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix gml: <http://www.opengis.net/ont/gml#> .
+@prefix my: <http://example.org/ApplicationSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sf: <http://www.opengis.net/ont/sf#> .
+
+my:PlaceOfInterest a owl:Class ;
+    rdfs:subClassOf geo:Feature .
+
+my:hasExactGeometry a owl:ObjectProperty ;
+    rdfs:subPropertyOf geo:hasDefaultGeometry,
+        geo:hasGeometry .
+
+my:hasPointGeometry a owl:ObjectProperty ;
+    rdfs:subPropertyOf geo:hasGeometry .
+
+<http://example.org/ApplicationSchema/benchmark-ql> a owl:Ontology .
+
+geo:Geometry a owl:Class .
+
+geo:SpatialObject a owl:Class .
+
+geo:asGML a owl:DatatypeProperty .
+
+geo:asWKT a owl:DatatypeProperty .
+
+geo:coordinateDimension a owl:DatatypeProperty .
+
+geo:dimension a owl:DatatypeProperty .
+
+geo:ehContains a owl:ObjectProperty .
+
+geo:ehCoveredBy a owl:ObjectProperty .
+
+geo:ehCovers a owl:ObjectProperty .
+
+geo:ehDisjoint a owl:ObjectProperty .
+
+geo:ehEquals a owl:ObjectProperty .
+
+geo:ehInside a owl:ObjectProperty .
+
+geo:ehMeet a owl:ObjectProperty .
+
+geo:ehOverlap a owl:ObjectProperty .
+
+geo:hasSerialization a owl:DatatypeProperty .
+
+geo:isEmpty a owl:DatatypeProperty .
+
+geo:isSimple a owl:DatatypeProperty .
+
+geo:rcc8dc a owl:ObjectProperty .
+
+geo:rcc8ec a owl:ObjectProperty .
+
+geo:rcc8eq a owl:ObjectProperty .
+
+geo:rcc8ntpp a owl:ObjectProperty .
+
+geo:rcc8ntppi a owl:ObjectProperty .
+
+geo:rcc8po a owl:ObjectProperty .
+
+geo:rcc8tpp a owl:ObjectProperty .
+
+geo:rcc8tppi a owl:ObjectProperty .
+
+geo:sfContains a owl:ObjectProperty .
+
+geo:sfCrosses a owl:ObjectProperty .
+
+geo:sfDisjoint a owl:ObjectProperty .
+
+geo:sfEquals a owl:ObjectProperty .
+
+geo:sfIntersects a owl:ObjectProperty .
+
+geo:sfOverlaps a owl:ObjectProperty .
+
+geo:sfTouches a owl:ObjectProperty .
+
+geo:sfWithin a owl:ObjectProperty .
+
+geo:spatialDimension a owl:DatatypeProperty .
+
+gml:LineString a owl:Class .
+
+gml:Point a owl:Class .
+
+gml:Polygon a owl:Class ;
+    rdfs:subClassOf gml:Surface .
+
+sf:LineString a owl:Class ;
+    rdfs:subClassOf sf:Curve .
+
+sf:Point a owl:Class .
+
+sf:Polygon a owl:Class ;
+    rdfs:subClassOf sf:Surface .
+
+geo:Feature a owl:Class .
+
+geo:hasDefaultGeometry a owl:ObjectProperty .
+
+gml:Surface a owl:Class .
+
+sf:Curve a owl:Class .
+
+sf:Surface a owl:Class .
+
+geo:hasGeometry a owl:ObjectProperty .
