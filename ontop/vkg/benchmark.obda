@@ -182,67 +182,57 @@ source     SELECT subject_iri AS s, object_iri AS o
            WHERE predicate_iri = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'
 
 mappingId  lit_30
-target     <{s}> geo:asGML "{v}"^^geo:gmlLiteral .
-source     SELECT subject_iri AS s, lexical_value AS v
-           FROM geobench.literal_fact
-           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#asGML'
-             AND datatype_iri = 'http://www.opengis.net/ont/geosparql#gmlLiteral'
-             AND language_tag = ''
+target     <{s}> geo:coordinateDimension "{v}"^^xsd:integer .
+source     SELECT subject_iri AS s, value AS v
+           FROM geobench.coordinatedimension
 
 mappingId  lit_31
-target     <{s}> geo:asWKT "{v}"^^geo:wktLiteral .
-source     SELECT subject_iri AS s, lexical_value AS v
-           FROM geobench.literal_fact
-           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#asWKT'
-             AND datatype_iri = 'http://www.opengis.net/ont/geosparql#wktLiteral'
-             AND language_tag = ''
+target     <{s}> geo:dimension "{v}"^^xsd:integer .
+source     SELECT subject_iri AS s, value AS v
+           FROM geobench.dimension
 
 mappingId  lit_32
-target     <{s}> geo:coordinateDimension "{v}"^^xsd:integer .
-source     SELECT subject_iri AS s, lexical_value AS v
-           FROM geobench.literal_fact
-           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#coordinateDimension'
-             AND datatype_iri = 'http://www.w3.org/2001/XMLSchema#integer'
-             AND language_tag = ''
+target     <{s}> geo:isEmpty "{v}"^^xsd:boolean .
+source     SELECT subject_iri AS s, value AS v
+           FROM geobench.isempty
 
 mappingId  lit_33
-target     <{s}> geo:dimension "{v}"^^xsd:integer .
-source     SELECT subject_iri AS s, lexical_value AS v
-           FROM geobench.literal_fact
-           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#dimension'
-             AND datatype_iri = 'http://www.w3.org/2001/XMLSchema#integer'
-             AND language_tag = ''
+target     <{s}> geo:isSimple "{v}"^^xsd:boolean .
+source     SELECT subject_iri AS s, value AS v
+           FROM geobench.issimple
 
 mappingId  lit_34
-target     <{s}> geo:hasSerialization "{v}"^^geo:wktLiteral .
-source     SELECT subject_iri AS s, lexical_value AS v
-           FROM geobench.literal_fact
-           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#hasSerialization'
-             AND datatype_iri = 'http://www.opengis.net/ont/geosparql#wktLiteral'
-             AND language_tag = ''
+target     <{s}> geo:spatialDimension "{v}"^^xsd:integer .
+source     SELECT subject_iri AS s, value AS v
+           FROM geobench.spatialdimension
 
 mappingId  lit_35
-target     <{s}> geo:isEmpty "{v}"^^xsd:boolean .
-source     SELECT subject_iri AS s, lexical_value AS v
-           FROM geobench.literal_fact
-           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#isEmpty'
-             AND datatype_iri = 'http://www.w3.org/2001/XMLSchema#boolean'
-             AND language_tag = ''
+target     <{s}> geo:asGML "{v}"^^geo:gmlLiteral .
+source     SELECT subject_iri AS s, gml AS v
+           FROM geobench.asgml
 
 mappingId  lit_36
-target     <{s}> geo:isSimple "{v}"^^xsd:boolean .
-source     SELECT subject_iri AS s, lexical_value AS v
-           FROM geobench.literal_fact
-           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#isSimple'
-             AND datatype_iri = 'http://www.w3.org/2001/XMLSchema#boolean'
-             AND language_tag = ''
+target     <{s}> geo:hasSerialization "{v}"^^geo:wktLiteral .
+source     SELECT subject_iri AS s, wkt AS v
+           FROM geobench.hasserialization_crs84
 
 mappingId  lit_37
-target     <{s}> geo:spatialDimension "{v}"^^xsd:integer .
-source     SELECT subject_iri AS s, lexical_value AS v
-           FROM geobench.literal_fact
-           WHERE predicate_iri = 'http://www.opengis.net/ont/geosparql#spatialDimension'
-             AND datatype_iri = 'http://www.w3.org/2001/XMLSchema#integer'
-             AND language_tag = ''
+target     <{s}> geo:asWKT "<http://www.opengis.net/def/crs/OGC/1.3/CRS84> {v}"^^geo:wktLiteral .
+source     SELECT subject_iri AS s, wkt AS v
+           FROM geobench.aswkt_crs84
 
+;mappingId  lit_38
+;target     <{s}> geo:asWKT "<http://www.opengis.net/def/crs/EPSG/0/3857> {v}"^^geo:wktLiteral .
+;source     SELECT subject_iri AS s, wkt AS v
+;           FROM geobench.aswkt_epsg3857
+
+;mappingId  lit_39
+;target     <{s}> geo:asWKT "{v}"^^geo:wktLiteral .
+;source     SELECT subject_iri AS s, wkt AS v
+;          FROM geobench.aswkt_implicit_crs84
+
+;mappingId  lit_40
+;target     <{s}> geo:asWKT "{v}"^^geo:wktLiteral .
+;source     SELECT subject_iri AS s, wkt AS v
+;           FROM geobench.aswkt_empty_lexical
 ]]

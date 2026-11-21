@@ -1,0 +1,27 @@
+{
+  "tests": [
+    {
+      "id": "geof-maxX-01",
+      "query": "geof-maxX.rq",
+      "configurations": [
+        "crs84",
+        "epsg3857"
+      ]
+    },
+    {
+      "id": "geof-area-01",
+      "query": "geof-area.rq",
+      "configurations": [
+        "crs84",
+        "epsg3857"
+      ]
+    },
+    {
+      "id": "geof-empty-01",
+      "query": "geof-empty.rq",
+      "configurations": [
+        "empty-lexical"
+      ]
+    }
+  ]
+}

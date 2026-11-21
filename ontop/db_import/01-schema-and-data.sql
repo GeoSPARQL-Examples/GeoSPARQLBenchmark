@@ -1,26 +1,24 @@
+-- Explicit property tables; generated from the user-supplied SQL, without changing RDF facts.
+BEGIN;
+-- Enable PostGIS
+CREATE EXTENSION IF NOT EXISTS postgis WITH SCHEMA public;
 CREATE SCHEMA IF NOT EXISTS geobench;
+DROP TABLE IF EXISTS geobench.iri_fact CASCADE;
+DROP TABLE IF EXISTS geobench.literal_fact CASCADE;
+DROP TABLE IF EXISTS geobench.coordinatedimension CASCADE;
+DROP TABLE IF EXISTS geobench.dimension CASCADE;
+DROP TABLE IF EXISTS geobench.isempty CASCADE;
+DROP TABLE IF EXISTS geobench.issimple CASCADE;
+DROP TABLE IF EXISTS geobench.spatialdimension CASCADE;
+DROP TABLE IF EXISTS geobench.aswkt_crs84 CASCADE;
+DROP TABLE IF EXISTS geobench.hasserialization_crs84 CASCADE;
+DROP TABLE IF EXISTS geobench.asgml CASCADE;
+DROP TABLE IF EXISTS geobench.aswkt_empty_lexical CASCADE;
+DROP TABLE IF EXISTS geobench.aswkt_implicit_crs84 CASCADE;
+DROP TABLE IF EXISTS geobench.aswkt_epsg3857 CASCADE;
 
-SET search_path TO geobench, public;
-
-CREATE TABLE geobench.iri_fact (
-                                   subject_iri   TEXT NOT NULL,
-                                   predicate_iri TEXT NOT NULL,
-                                   object_iri    TEXT NOT NULL,
-                                   PRIMARY KEY (subject_iri, predicate_iri, object_iri)
-);
-
-CREATE TABLE geobench.literal_fact (
-                                       subject_iri   TEXT NOT NULL,
-                                       predicate_iri TEXT NOT NULL,
-                                       lexical_value TEXT NOT NULL,
-                                       datatype_iri  TEXT NOT NULL DEFAULT '',
-                                       language_tag  TEXT NOT NULL DEFAULT ''
-);
-
--- Run AFTER creating the geobench tables. Inserts all explicit ABox triples from dataset.rdf and additional-geometries.ttl.
---BEGIN;
-
--- 225 rows in geobench.iri_fact
+--225 rows in geobench.iri_fact
+CREATE TABLE geobench.iri_fact (subject_iri TEXT NOT NULL, predicate_iri TEXT NOT NULL, object_iri TEXT NOT NULL);
 INSERT INTO geobench.iri_fact VALUES
                                   ('http://example.org/ApplicationSchema#A', 'http://example.org/ApplicationSchema#hasExactGeometry', 'http://example.org/ApplicationSchema#AExactGeom'),
                                   ('http://example.org/ApplicationSchema#A', 'http://example.org/ApplicationSchema#hasPointGeometry', 'http://example.org/ApplicationSchema#APointGeom'),
@@ -248,157 +246,231 @@ INSERT INTO geobench.iri_fact VALUES
                                   ('http://example.org/ApplicationSchema#W', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', 'http://www.opengis.net/ont/geosparql#Feature'),
                                   ('http://example.org/ApplicationSchema#WExactGeom', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', 'http://www.opengis.net/ont/geosparql#Geometry');
 
--- 115 rows in geobench.literal_fact
-INSERT INTO geobench.literal_fact VALUES
-                                      ('http://example.org/ApplicationSchema#AExactGeom', 'http://www.opengis.net/ont/geosparql#coordinateDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#AExactGeom', 'http://www.opengis.net/ont/geosparql#dimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#AExactGeom', 'http://www.opengis.net/ont/geosparql#isEmpty', 'false', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#AExactGeom', 'http://www.opengis.net/ont/geosparql#isSimple', 'true', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#AExactGeom', 'http://www.opengis.net/ont/geosparql#spatialDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#AExactGeom', 'http://www.opengis.net/ont/geosparql#asWKT', '<http://www.opengis.net/def/crs/OGC/1.3/CRS84> Polygon((-83.6 34.1, -83.2 34.1, -83.2 34.5, -83.6 34.5, -83.6 34.1))', 'http://www.opengis.net/ont/geosparql#wktLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#AExactGeom', 'http://www.opengis.net/ont/geosparql#hasSerialization', '<http://www.opengis.net/def/crs/OGC/1.3/CRS84> Polygon((-83.6 34.1, -83.2 34.1, -83.2 34.5, -83.6 34.5, -83.6 34.1))', 'http://www.opengis.net/ont/geosparql#wktLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#AExactGeom', 'http://www.opengis.net/ont/geosparql#asGML', '<gml:Polygon xmlns:gml="http://www.opengis.net/ont/gml" srsName="http://www.opengis.net/def/crs/OGC/1.3/CRS84"><gml:exterior><gml:LinearRing><gml:posList>-83.6 34.1 -83.2 34.1 -83.2 34.5 -83.6 34.5 -83.6 34.1</gml:posList></gml:LinearRing></gml:exterior></gml:Polygon>', 'http://www.opengis.net/ont/geosparql#gmlLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#APointGeom', 'http://www.opengis.net/ont/geosparql#coordinateDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#APointGeom', 'http://www.opengis.net/ont/geosparql#dimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#APointGeom', 'http://www.opengis.net/ont/geosparql#isEmpty', 'false', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#APointGeom', 'http://www.opengis.net/ont/geosparql#isSimple', 'true', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#APointGeom', 'http://www.opengis.net/ont/geosparql#spatialDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#APointGeom', 'http://www.opengis.net/ont/geosparql#asWKT', '<http://www.opengis.net/def/crs/OGC/1.3/CRS84> Point(-83.4 34.3)', 'http://www.opengis.net/ont/geosparql#wktLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#APointGeom', 'http://www.opengis.net/ont/geosparql#asGML', '<gml:Point xmlns:gml="http://www.opengis.net/ont/gml" srsName="http://www.opengis.net/def/crs/OGC/1.3/CRS84"><gml:pos>-83.4 34.3</gml:pos></gml:Point>', 'http://www.opengis.net/ont/geosparql#gmlLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#BExactGeom', 'http://www.opengis.net/ont/geosparql#coordinateDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#BExactGeom', 'http://www.opengis.net/ont/geosparql#dimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#BExactGeom', 'http://www.opengis.net/ont/geosparql#isEmpty', 'false', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#BExactGeom', 'http://www.opengis.net/ont/geosparql#isSimple', 'true', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#BExactGeom', 'http://www.opengis.net/ont/geosparql#spatialDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#BExactGeom', 'http://www.opengis.net/ont/geosparql#asWKT', '<http://www.opengis.net/def/crs/OGC/1.3/CRS84> Polygon((-83.6 34.1, -83.4 34.1, -83.4 34.3, -83.6 34.3, -83.6 34.1))', 'http://www.opengis.net/ont/geosparql#wktLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#BExactGeom', 'http://www.opengis.net/ont/geosparql#asGML', '<gml:Polygon xmlns:gml="http://www.opengis.net/ont/gml" srsName="http://www.opengis.net/def/crs/OGC/1.3/CRS84"><gml:exterior><gml:LinearRing><gml:posList>-83.6 34.1 -83.4 34.1 -83.4 34.3 -83.6 34.3 -83.6 34.1</gml:posList></gml:LinearRing></gml:exterior></gml:Polygon>', 'http://www.opengis.net/ont/geosparql#gmlLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#BPointGeom', 'http://www.opengis.net/ont/geosparql#coordinateDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#BPointGeom', 'http://www.opengis.net/ont/geosparql#isEmpty', 'false', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#BPointGeom', 'http://www.opengis.net/ont/geosparql#isSimple', 'true', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#BPointGeom', 'http://www.opengis.net/ont/geosparql#spatialDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#BPointGeom', 'http://www.opengis.net/ont/geosparql#asWKT', '<http://www.opengis.net/def/crs/OGC/1.3/CRS84> Point(-83.5 34.2)', 'http://www.opengis.net/ont/geosparql#wktLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#BPointGeom', 'http://www.opengis.net/ont/geosparql#asGML', '<gml:Point xmlns:gml="http://www.opengis.net/ont/gml" srsName="http://www.opengis.net/def/crs/OGC/1.3/CRS84"><gml:pos>-83.5 34.2</gml:pos></gml:Point>', 'http://www.opengis.net/ont/geosparql#gmlLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#CExactGeom', 'http://www.opengis.net/ont/geosparql#coordinateDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#CExactGeom', 'http://www.opengis.net/ont/geosparql#dimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#CExactGeom', 'http://www.opengis.net/ont/geosparql#isEmpty', 'false', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#CExactGeom', 'http://www.opengis.net/ont/geosparql#isSimple', 'true', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#CExactGeom', 'http://www.opengis.net/ont/geosparql#spatialDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#CExactGeom', 'http://www.opengis.net/ont/geosparql#asWKT', '<http://www.opengis.net/def/crs/OGC/1.3/CRS84> Polygon((-83.2 34.3, -83.0 34.3, -83.0 34.5, -83.2 34.5, -83.2 34.3))', 'http://www.opengis.net/ont/geosparql#wktLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#CExactGeom', 'http://www.opengis.net/ont/geosparql#asGML', '<gml:Polygon xmlns:gml="http://www.opengis.net/ont/gml" srsName="http://www.opengis.net/def/crs/OGC/1.3/CRS84"><gml:exterior><gml:LinearRing><gml:posList>-83.2 34.3 -83.0 34.3 -83.0 34.5 -83.2 34.5 -83.2 34.3</gml:posList></gml:LinearRing></gml:exterior></gml:Polygon>', 'http://www.opengis.net/ont/geosparql#gmlLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#CPointGeom', 'http://www.opengis.net/ont/geosparql#coordinateDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#CPointGeom', 'http://www.opengis.net/ont/geosparql#dimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#CPointGeom', 'http://www.opengis.net/ont/geosparql#isEmpty', 'false', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#CPointGeom', 'http://www.opengis.net/ont/geosparql#isSimple', 'true', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#CPointGeom', 'http://www.opengis.net/ont/geosparql#spatialDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#CPointGeom', 'http://www.opengis.net/ont/geosparql#asWKT', '<http://www.opengis.net/def/crs/OGC/1.3/CRS84> Point(-83.1 34.4)', 'http://www.opengis.net/ont/geosparql#wktLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#CPointGeom', 'http://www.opengis.net/ont/geosparql#asGML', '<gml:Point xmlns:gml="http://www.opengis.net/ont/gml" srsName="http://www.opengis.net/def/crs/OGC/1.3/CRS84"><gml:pos>-83.1 34.4</gml:pos></gml:Point>', 'http://www.opengis.net/ont/geosparql#gmlLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#DExactGeom', 'http://www.opengis.net/ont/geosparql#coordinateDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#DExactGeom', 'http://www.opengis.net/ont/geosparql#dimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#DExactGeom', 'http://www.opengis.net/ont/geosparql#isEmpty', 'false', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#DExactGeom', 'http://www.opengis.net/ont/geosparql#isSimple', 'true', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#DExactGeom', 'http://www.opengis.net/ont/geosparql#spatialDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#DExactGeom', 'http://www.opengis.net/ont/geosparql#asWKT', '<http://www.opengis.net/def/crs/OGC/1.3/CRS84> Polygon((-83.3 34.0, -83.1 34.0, -83.1 34.2, -83.3 34.2, -83.3 34.0))', 'http://www.opengis.net/ont/geosparql#wktLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#DExactGeom', 'http://www.opengis.net/ont/geosparql#asGML', '<gml:Polygon xmlns:gml="http://www.opengis.net/ont/gml" srsName="http://www.opengis.net/def/crs/OGC/1.3/CRS84"><gml:exterior><gml:LinearRing><gml:posList>-83.3 34.0 -83.1 34.0 -83.1 34.2 -83.3 34.2 -83.3 34.0</gml:posList></gml:LinearRing></gml:exterior></gml:Polygon>', 'http://www.opengis.net/ont/geosparql#gmlLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#DPointGeom', 'http://www.opengis.net/ont/geosparql#coordinateDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#DPointGeom', 'http://www.opengis.net/ont/geosparql#dimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#DPointGeom', 'http://www.opengis.net/ont/geosparql#isEmpty', 'false', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#DPointGeom', 'http://www.opengis.net/ont/geosparql#isSimple', 'true', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#DPointGeom', 'http://www.opengis.net/ont/geosparql#spatialDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#DPointGeom', 'http://www.opengis.net/ont/geosparql#asWKT', '<http://www.opengis.net/def/crs/OGC/1.3/CRS84> Point(-83.2 34.1)', 'http://www.opengis.net/ont/geosparql#wktLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#DPointGeom', 'http://www.opengis.net/ont/geosparql#asGML', '<gml:Point xmlns:gml="http://www.opengis.net/ont/gml" srsName="http://www.opengis.net/def/crs/OGC/1.3/CRS84"><gml:pos>-83.2 34.1</gml:pos></gml:Point>', 'http://www.opengis.net/ont/geosparql#gmlLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#EExactGeom', 'http://www.opengis.net/ont/geosparql#coordinateDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#EExactGeom', 'http://www.opengis.net/ont/geosparql#dimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#EExactGeom', 'http://www.opengis.net/ont/geosparql#isEmpty', 'false', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#EExactGeom', 'http://www.opengis.net/ont/geosparql#isSimple', 'true', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#EExactGeom', 'http://www.opengis.net/ont/geosparql#spatialDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#EExactGeom', 'http://www.opengis.net/ont/geosparql#asWKT', '<http://www.opengis.net/def/crs/OGC/1.3/CRS84> LineString(-83.4 34.0, -83.3 34.3)', 'http://www.opengis.net/ont/geosparql#wktLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#EExactGeom', 'http://www.opengis.net/ont/geosparql#asGML', '<gml:LineString srsName="http://www.opengis.net/def/crs/OGC/1.3/CRS84" xmlns:gml="http://www.opengis.net/ont/gml"><gml:posList>-83.4 34.0 -83.3 34.3</gml:posList></gml:LineString>', 'http://www.opengis.net/ont/geosparql#gmlLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#FExactGeom', 'http://www.opengis.net/ont/geosparql#coordinateDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#FExactGeom', 'http://www.opengis.net/ont/geosparql#dimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#FExactGeom', 'http://www.opengis.net/ont/geosparql#isEmpty', 'false', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#FExactGeom', 'http://www.opengis.net/ont/geosparql#isSimple', 'true', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#FExactGeom', 'http://www.opengis.net/ont/geosparql#spatialDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#FExactGeom', 'http://www.opengis.net/ont/geosparql#asWKT', '<http://www.opengis.net/def/crs/OGC/1.3/CRS84> Point(-83.4 34.4)', 'http://www.opengis.net/ont/geosparql#wktLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#FExactGeom', 'http://www.opengis.net/ont/geosparql#asGML', '<gml:Point xmlns:gml="http://www.opengis.net/ont/gml" srsName="http://www.opengis.net/def/crs/OGC/1.3/CRS84"><gml:pos>-83.4 34.4</gml:pos></gml:Point>', 'http://www.opengis.net/ont/geosparql#gmlLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#GExactGeom', 'http://www.opengis.net/ont/geosparql#coordinateDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#GExactGeom', 'http://www.opengis.net/ont/geosparql#dimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#GExactGeom', 'http://www.opengis.net/ont/geosparql#isEmpty', 'false', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#GExactGeom', 'http://www.opengis.net/ont/geosparql#isSimple', 'true', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#GExactGeom', 'http://www.opengis.net/ont/geosparql#spatialDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#GExactGeom', 'http://www.opengis.net/ont/geosparql#asWKT', '<http://www.opengis.net/def/crs/OGC/1.3/CRS84> Polygon((-83.5 34.2, -83.3 34.2, -83.3 34.4, -83.5 34.4, -83.5 34.2))', 'http://www.opengis.net/ont/geosparql#wktLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#GExactGeom', 'http://www.opengis.net/ont/geosparql#asGML', '<gml:Polygon xmlns:gml="http://www.opengis.net/ont/gml" srsName="http://www.opengis.net/def/crs/OGC/1.3/CRS84"><gml:exterior><gml:LinearRing><gml:posList>-83.5 34.2 -83.3 34.2 -83.3 34.4 -83.5 34.4 -83.5 34.2</gml:posList></gml:LinearRing></gml:exterior></gml:Polygon>', 'http://www.opengis.net/ont/geosparql#gmlLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#GPointGeom', 'http://www.opengis.net/ont/geosparql#coordinateDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#GPointGeom', 'http://www.opengis.net/ont/geosparql#dimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#GPointGeom', 'http://www.opengis.net/ont/geosparql#isEmpty', 'false', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#GPointGeom', 'http://www.opengis.net/ont/geosparql#isSimple', 'true', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#GPointGeom', 'http://www.opengis.net/ont/geosparql#spatialDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#GPointGeom', 'http://www.opengis.net/ont/geosparql#asWKT', '<http://www.opengis.net/def/crs/OGC/1.3/CRS84> Point(-83.4 34.3)', 'http://www.opengis.net/ont/geosparql#wktLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#GPointGeom', 'http://www.opengis.net/ont/geosparql#asGML', '<gml:Point xmlns:gml="http://www.opengis.net/ont/gml" srsName="http://www.opengis.net/def/crs/OGC/1.3/CRS84"><gml:pos>-83.4 34.3</gml:pos></gml:Point>', 'http://www.opengis.net/ont/geosparql#gmlLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#HExactGeom', 'http://www.opengis.net/ont/geosparql#asGML', '', 'http://www.opengis.net/ont/geosparql#gmlLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#HExactGeom', 'http://www.opengis.net/ont/geosparql#asWKT', '', 'http://www.opengis.net/ont/geosparql#wktLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#HExactGeom', 'http://www.opengis.net/ont/geosparql#coordinateDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#HExactGeom', 'http://www.opengis.net/ont/geosparql#dimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#HExactGeom', 'http://www.opengis.net/ont/geosparql#isEmpty', 'true', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#HExactGeom', 'http://www.opengis.net/ont/geosparql#isSimple', 'true', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#HExactGeom', 'http://www.opengis.net/ont/geosparql#spatialDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#HPointGeom', 'http://www.opengis.net/ont/geosparql#asGML', '', 'http://www.opengis.net/ont/geosparql#gmlLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#HPointGeom', 'http://www.opengis.net/ont/geosparql#asWKT', '', 'http://www.opengis.net/ont/geosparql#wktLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#HPointGeom', 'http://www.opengis.net/ont/geosparql#coordinateDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#HPointGeom', 'http://www.opengis.net/ont/geosparql#dimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#HPointGeom', 'http://www.opengis.net/ont/geosparql#isEmpty', 'true', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#HPointGeom', 'http://www.opengis.net/ont/geosparql#isSimple', 'true', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#HPointGeom', 'http://www.opengis.net/ont/geosparql#spatialDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#IExactGeom', 'http://www.opengis.net/ont/geosparql#asWKT', 'LINESTRING EMPTY', 'http://www.opengis.net/ont/geosparql#wktLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#IExactGeom', 'http://www.opengis.net/ont/geosparql#asGML', '<LineString xmlns="https://www.opengis.net/gml"><posList></posList></LineString>', 'http://www.opengis.net/ont/geosparql#gmlLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#IExactGeom', 'http://www.opengis.net/ont/geosparql#coordinateDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#IExactGeom', 'http://www.opengis.net/ont/geosparql#dimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#IExactGeom', 'http://www.opengis.net/ont/geosparql#isEmpty', 'true', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#IExactGeom', 'http://www.opengis.net/ont/geosparql#isSimple', 'true', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#IExactGeom', 'http://www.opengis.net/ont/geosparql#spatialDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#IPointGeom', 'http://www.opengis.net/ont/geosparql#asWKT', 'POINT EMPTY', 'http://www.opengis.net/ont/geosparql#wktLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#IPointGeom', 'http://www.opengis.net/ont/geosparql#asGML', '<Point xmlns="https://www.opengis.net/gml"><posList></posList></Point>', 'http://www.opengis.net/ont/geosparql#gmlLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#IPointGeom', 'http://www.opengis.net/ont/geosparql#coordinateDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#IPointGeom', 'http://www.opengis.net/ont/geosparql#dimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#IPointGeom', 'http://www.opengis.net/ont/geosparql#isEmpty', 'true', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#IPointGeom', 'http://www.opengis.net/ont/geosparql#isSimple', 'true', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#IPointGeom', 'http://www.opengis.net/ont/geosparql#spatialDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#JExactGeom', 'http://www.opengis.net/ont/geosparql#coordinateDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#JExactGeom', 'http://www.opengis.net/ont/geosparql#dimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#JExactGeom', 'http://www.opengis.net/ont/geosparql#isEmpty', 'false', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#JExactGeom', 'http://www.opengis.net/ont/geosparql#isSimple', 'true', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#JExactGeom', 'http://www.opengis.net/ont/geosparql#spatialDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#JExactGeom', 'http://www.opengis.net/ont/geosparql#asWKT', '<http://www.opengis.net/def/crs/OGC/1.3/CRS84> Polygon((-77.089005 38.913574,-77.029953 38.913574,-77.029953 38.886321,-77.089005 38.886321,-77.089005 38.913574))', 'http://www.opengis.net/ont/geosparql#wktLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#JExactGeom', 'http://www.opengis.net/ont/geosparql#asGML', '<gml:Polygon xmlns:gml="http://www.opengis.net/ont/gml" srsName="http://www.opengis.net/def/crs/OGC/1.3/CRS84"><gml:exterior><gml:LinearRing><gml:posList>-77.089005 38.913574 -77.029953 38.913574 -77.029953 38.886321 -77.089005 38.886321 -77.089005 38.913574</gml:posList></gml:LinearRing></gml:exterior></gml:Polygon>', 'http://www.opengis.net/ont/geosparql#gmlLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#KExactGeom', 'http://www.opengis.net/ont/geosparql#coordinateDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#KExactGeom', 'http://www.opengis.net/ont/geosparql#dimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#KExactGeom', 'http://www.opengis.net/ont/geosparql#isEmpty', 'false', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#KExactGeom', 'http://www.opengis.net/ont/geosparql#isSimple', 'true', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#KExactGeom', 'http://www.opengis.net/ont/geosparql#spatialDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#KExactGeom', 'http://www.opengis.net/ont/geosparql#asWKT', '<http://www.opengis.net/def/crs/OGC/1.3/CRS84> Polygon((-77.089005 38.913574,-77.029953 38.913574,-77.029953 38.886321,-77.089005 38.886321,-77.089005 38.913574))', 'http://www.opengis.net/ont/geosparql#wktLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#KExactGeom', 'http://www.opengis.net/ont/geosparql#asGML', '<gml:Polygon xmlns:gml="http://www.opengis.net/ont/gml" srsName="http://www.opengis.net/def/crs/OGC/1.3/CRS84"><gml:exterior><gml:LinearRing><gml:posList>-77.089005 38.913574 -77.029953 38.913574 -77.029953 38.886321 -77.089005 38.886321 -77.089005 38.913574</gml:posList></gml:LinearRing></gml:exterior></gml:Polygon>', 'http://www.opengis.net/ont/geosparql#gmlLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#LExactGeom', 'http://www.opengis.net/ont/geosparql#coordinateDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#LExactGeom', 'http://www.opengis.net/ont/geosparql#dimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#LExactGeom', 'http://www.opengis.net/ont/geosparql#isEmpty', 'false', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#LExactGeom', 'http://www.opengis.net/ont/geosparql#isSimple', 'true', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#LExactGeom', 'http://www.opengis.net/ont/geosparql#spatialDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#LExactGeom', 'http://www.opengis.net/ont/geosparql#asWKT', '<http://www.opengis.net/def/crs/OGC/1.3/CRS84> Point(-88.38 31.95)', 'http://www.opengis.net/ont/geosparql#wktLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#LExactGeom', 'http://www.opengis.net/ont/geosparql#asGML', '<gml:Point xmlns:gml="http://www.opengis.net/ont/gml" srsName="http://www.opengis.net/def/crs/OGC/1.3/CRS84"><gml:pos>-88.38 31.95</gml:pos></gml:Point>', 'http://www.opengis.net/ont/geosparql#gmlLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#MExactGeom', 'http://www.opengis.net/ont/geosparql#coordinateDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#MExactGeom', 'http://www.opengis.net/ont/geosparql#dimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#MExactGeom', 'http://www.opengis.net/ont/geosparql#isEmpty', 'false', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#MExactGeom', 'http://www.opengis.net/ont/geosparql#isSimple', 'true', 'http://www.w3.org/2001/XMLSchema#boolean', ''),
-                                      ('http://example.org/ApplicationSchema#MExactGeom', 'http://www.opengis.net/ont/geosparql#spatialDimension', '2', 'http://www.w3.org/2001/XMLSchema#integer', ''),
-                                      ('http://example.org/ApplicationSchema#MExactGeom', 'http://www.opengis.net/ont/geosparql#asWKT', '<http://www.opengis.net/def/crs/OGC/1.3/CRS84> Point(31.95 -88.38)', 'http://www.opengis.net/ont/geosparql#wktLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#MExactGeom', 'http://www.opengis.net/ont/geosparql#asGML', '<gml:Point xmlns:gml="http://www.opengis.net/ont/gml" srsName="http://www.opengis.net/def/crs/EPSG/0/4326"><gml:pos>31.95 -88.38</gml:pos></gml:Point>', 'http://www.opengis.net/ont/geosparql#gmlLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#NExactGeom', 'http://www.opengis.net/ont/geosparql#asWKT', '<http://www.opengis.net/def/crs/EPSG/0/3857> POINT Z (2 3 7)', 'http://www.opengis.net/ont/geosparql#wktLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#OExactGeom', 'http://www.opengis.net/ont/geosparql#asWKT', '<http://www.opengis.net/def/crs/EPSG/0/3857> LINESTRING Z (0 0 2, 3 4 9)', 'http://www.opengis.net/ont/geosparql#wktLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#PExactGeom', 'http://www.opengis.net/ont/geosparql#asWKT', '<http://www.opengis.net/def/crs/EPSG/0/3857> MULTIPOINT ((0 0),(3 4))', 'http://www.opengis.net/ont/geosparql#wktLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#QExactGeom', 'http://www.opengis.net/ont/geosparql#asWKT', '<http://www.opengis.net/def/crs/EPSG/0/3857> POLYGON ((0 0,10 0,10 10,0 10,0 0))', 'http://www.opengis.net/ont/geosparql#wktLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#RExactGeom', 'http://www.opengis.net/ont/geosparql#asWKT', '<http://www.opengis.net/def/crs/EPSG/0/3857> POINT (0 0)', 'http://www.opengis.net/ont/geosparql#wktLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#SExactGeom', 'http://www.opengis.net/ont/geosparql#asWKT', '<http://www.opengis.net/def/crs/EPSG/0/3857> POINT (3 4)', 'http://www.opengis.net/ont/geosparql#wktLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#TExactGeom', 'http://www.opengis.net/ont/geosparql#asWKT', '<http://www.opengis.net/def/crs/EPSG/0/3857> LINESTRING (0 0,3 4)', 'http://www.opengis.net/ont/geosparql#wktLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#UExactGeom', 'http://www.opengis.net/ont/geosparql#asWKT', '<http://www.opengis.net/def/crs/EPSG/0/3857> POLYGON ((0 0,4 0,4 4,2 2,0 4,0 0))', 'http://www.opengis.net/ont/geosparql#wktLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#VExactGeom', 'http://www.opengis.net/ont/geosparql#asWKT', '<http://www.opengis.net/def/crs/EPSG/0/3857> POINT M (1 2 5)', 'http://www.opengis.net/ont/geosparql#wktLiteral', ''),
-                                      ('http://example.org/ApplicationSchema#WExactGeom', 'http://www.opengis.net/ont/geosparql#asWKT', '<http://www.opengis.net/def/crs/EPSG/0/3857> MULTIPOLYGON (((0 0,2 0,2 2,0 2,0 0)),((4 0,6 0,6 2,4 2,4 0)))', 'http://www.opengis.net/ont/geosparql#wktLiteral', '');
+CREATE TABLE geobench.coordinatedimension (subject_iri TEXT NOT NULL, value INTEGER NOT NULL);
+INSERT INTO geobench.coordinatedimension (subject_iri,value) VALUES
+  ('http://example.org/ApplicationSchema#AExactGeom', 2),
+  ('http://example.org/ApplicationSchema#APointGeom', 2),
+  ('http://example.org/ApplicationSchema#BExactGeom', 2),
+  ('http://example.org/ApplicationSchema#BPointGeom', 2),
+  ('http://example.org/ApplicationSchema#CExactGeom', 2),
+  ('http://example.org/ApplicationSchema#CPointGeom', 2),
+  ('http://example.org/ApplicationSchema#DExactGeom', 2),
+  ('http://example.org/ApplicationSchema#DPointGeom', 2),
+  ('http://example.org/ApplicationSchema#EExactGeom', 2),
+  ('http://example.org/ApplicationSchema#FExactGeom', 2),
+  ('http://example.org/ApplicationSchema#GExactGeom', 2),
+  ('http://example.org/ApplicationSchema#GPointGeom', 2),
+  ('http://example.org/ApplicationSchema#HExactGeom', 2),
+  ('http://example.org/ApplicationSchema#HPointGeom', 2),
+  ('http://example.org/ApplicationSchema#IExactGeom', 2),
+  ('http://example.org/ApplicationSchema#IPointGeom', 2),
+  ('http://example.org/ApplicationSchema#JExactGeom', 2),
+  ('http://example.org/ApplicationSchema#KExactGeom', 2),
+  ('http://example.org/ApplicationSchema#LExactGeom', 2),
+  ('http://example.org/ApplicationSchema#MExactGeom', 2);
+CREATE TABLE geobench.dimension (subject_iri TEXT NOT NULL, value INTEGER NOT NULL);
+INSERT INTO geobench.dimension (subject_iri,value) VALUES
+  ('http://example.org/ApplicationSchema#AExactGeom', 2),
+  ('http://example.org/ApplicationSchema#APointGeom', 2),
+  ('http://example.org/ApplicationSchema#BExactGeom', 2),
+  ('http://example.org/ApplicationSchema#CExactGeom', 2),
+  ('http://example.org/ApplicationSchema#CPointGeom', 2),
+  ('http://example.org/ApplicationSchema#DExactGeom', 2),
+  ('http://example.org/ApplicationSchema#DPointGeom', 2),
+  ('http://example.org/ApplicationSchema#EExactGeom', 2),
+  ('http://example.org/ApplicationSchema#FExactGeom', 2),
+  ('http://example.org/ApplicationSchema#GExactGeom', 2),
+  ('http://example.org/ApplicationSchema#GPointGeom', 2),
+  ('http://example.org/ApplicationSchema#HExactGeom', 2),
+  ('http://example.org/ApplicationSchema#HPointGeom', 2),
+  ('http://example.org/ApplicationSchema#IExactGeom', 2),
+  ('http://example.org/ApplicationSchema#IPointGeom', 2),
+  ('http://example.org/ApplicationSchema#JExactGeom', 2),
+  ('http://example.org/ApplicationSchema#KExactGeom', 2),
+  ('http://example.org/ApplicationSchema#LExactGeom', 2),
+  ('http://example.org/ApplicationSchema#MExactGeom', 2);
+CREATE TABLE geobench.isempty (subject_iri TEXT NOT NULL, value BOOLEAN NOT NULL);
+INSERT INTO geobench.isempty (subject_iri,value) VALUES
+  ('http://example.org/ApplicationSchema#AExactGeom', FALSE),
+  ('http://example.org/ApplicationSchema#APointGeom', FALSE),
+  ('http://example.org/ApplicationSchema#BExactGeom', FALSE),
+  ('http://example.org/ApplicationSchema#BPointGeom', FALSE),
+  ('http://example.org/ApplicationSchema#CExactGeom', FALSE),
+  ('http://example.org/ApplicationSchema#CPointGeom', FALSE),
+  ('http://example.org/ApplicationSchema#DExactGeom', FALSE),
+  ('http://example.org/ApplicationSchema#DPointGeom', FALSE),
+  ('http://example.org/ApplicationSchema#EExactGeom', FALSE),
+  ('http://example.org/ApplicationSchema#FExactGeom', FALSE),
+  ('http://example.org/ApplicationSchema#GExactGeom', FALSE),
+  ('http://example.org/ApplicationSchema#GPointGeom', FALSE),
+  ('http://example.org/ApplicationSchema#HExactGeom', TRUE),
+  ('http://example.org/ApplicationSchema#HPointGeom', TRUE),
+  ('http://example.org/ApplicationSchema#IExactGeom', TRUE),
+  ('http://example.org/ApplicationSchema#IPointGeom', TRUE),
+  ('http://example.org/ApplicationSchema#JExactGeom', FALSE),
+  ('http://example.org/ApplicationSchema#KExactGeom', FALSE),
+  ('http://example.org/ApplicationSchema#LExactGeom', FALSE),
+  ('http://example.org/ApplicationSchema#MExactGeom', FALSE);
+CREATE TABLE geobench.issimple (subject_iri TEXT NOT NULL, value BOOLEAN NOT NULL);
+INSERT INTO geobench.issimple (subject_iri,value) VALUES
+  ('http://example.org/ApplicationSchema#AExactGeom', TRUE),
+  ('http://example.org/ApplicationSchema#APointGeom', TRUE),
+  ('http://example.org/ApplicationSchema#BExactGeom', TRUE),
+  ('http://example.org/ApplicationSchema#BPointGeom', TRUE),
+  ('http://example.org/ApplicationSchema#CExactGeom', TRUE),
+  ('http://example.org/ApplicationSchema#CPointGeom', TRUE),
+  ('http://example.org/ApplicationSchema#DExactGeom', TRUE),
+  ('http://example.org/ApplicationSchema#DPointGeom', TRUE),
+  ('http://example.org/ApplicationSchema#EExactGeom', TRUE),
+  ('http://example.org/ApplicationSchema#FExactGeom', TRUE),
+  ('http://example.org/ApplicationSchema#GExactGeom', TRUE),
+  ('http://example.org/ApplicationSchema#GPointGeom', TRUE),
+  ('http://example.org/ApplicationSchema#HExactGeom', TRUE),
+  ('http://example.org/ApplicationSchema#HPointGeom', TRUE),
+  ('http://example.org/ApplicationSchema#IExactGeom', TRUE),
+  ('http://example.org/ApplicationSchema#IPointGeom', TRUE),
+  ('http://example.org/ApplicationSchema#JExactGeom', TRUE),
+  ('http://example.org/ApplicationSchema#KExactGeom', TRUE),
+  ('http://example.org/ApplicationSchema#LExactGeom', TRUE),
+  ('http://example.org/ApplicationSchema#MExactGeom', TRUE);
+CREATE TABLE geobench.spatialdimension (subject_iri TEXT NOT NULL, value INTEGER NOT NULL);
+INSERT INTO geobench.spatialdimension (subject_iri,value) VALUES
+  ('http://example.org/ApplicationSchema#AExactGeom', 2),
+  ('http://example.org/ApplicationSchema#APointGeom', 2),
+  ('http://example.org/ApplicationSchema#BExactGeom', 2),
+  ('http://example.org/ApplicationSchema#BPointGeom', 2),
+  ('http://example.org/ApplicationSchema#CExactGeom', 2),
+  ('http://example.org/ApplicationSchema#CPointGeom', 2),
+  ('http://example.org/ApplicationSchema#DExactGeom', 2),
+  ('http://example.org/ApplicationSchema#DPointGeom', 2),
+  ('http://example.org/ApplicationSchema#EExactGeom', 2),
+  ('http://example.org/ApplicationSchema#FExactGeom', 2),
+  ('http://example.org/ApplicationSchema#GExactGeom', 2),
+  ('http://example.org/ApplicationSchema#GPointGeom', 2),
+  ('http://example.org/ApplicationSchema#HExactGeom', 2),
+  ('http://example.org/ApplicationSchema#HPointGeom', 2),
+  ('http://example.org/ApplicationSchema#IExactGeom', 2),
+  ('http://example.org/ApplicationSchema#IPointGeom', 2),
+  ('http://example.org/ApplicationSchema#JExactGeom', 2),
+  ('http://example.org/ApplicationSchema#KExactGeom', 2),
+  ('http://example.org/ApplicationSchema#LExactGeom', 2),
+  ('http://example.org/ApplicationSchema#MExactGeom', 2);
+
+CREATE TABLE geobench.aswkt_crs84 (subject_iri TEXT PRIMARY KEY , wkt geometry NOT NULL);
+INSERT INTO geobench.aswkt_crs84 (subject_iri,wkt) VALUES
+  ('http://example.org/ApplicationSchema#AExactGeom', 'Polygon((-83.6 34.1, -83.2 34.1, -83.2 34.5, -83.6 34.5, -83.6 34.1))'),
+  ('http://example.org/ApplicationSchema#APointGeom', 'Point(-83.4 34.3)'),
+  ('http://example.org/ApplicationSchema#BExactGeom', 'Polygon((-83.6 34.1, -83.4 34.1, -83.4 34.3, -83.6 34.3, -83.6 34.1))'),
+  ('http://example.org/ApplicationSchema#BPointGeom', 'Point(-83.5 34.2)'),
+  ('http://example.org/ApplicationSchema#CExactGeom', 'Polygon((-83.2 34.3, -83.0 34.3, -83.0 34.5, -83.2 34.5, -83.2 34.3))'),
+  ('http://example.org/ApplicationSchema#CPointGeom', 'Point(-83.1 34.4)'),
+  ('http://example.org/ApplicationSchema#DExactGeom', 'Polygon((-83.3 34.0, -83.1 34.0, -83.1 34.2, -83.3 34.2, -83.3 34.0))'),
+  ('http://example.org/ApplicationSchema#DPointGeom', 'Point(-83.2 34.1)'),
+  ('http://example.org/ApplicationSchema#EExactGeom', 'LineString(-83.4 34.0, -83.3 34.3)'),
+  ('http://example.org/ApplicationSchema#FExactGeom', 'Point(-83.4 34.4)'),
+  ('http://example.org/ApplicationSchema#GExactGeom', 'Polygon((-83.5 34.2, -83.3 34.2, -83.3 34.4, -83.5 34.4, -83.5 34.2))'),
+  ('http://example.org/ApplicationSchema#GPointGeom', 'Point(-83.4 34.3)'),
+  ('http://example.org/ApplicationSchema#JExactGeom', 'Polygon((-77.089005 38.913574,-77.029953 38.913574,-77.029953 38.886321,-77.089005 38.886321,-77.089005 38.913574))'),
+  ('http://example.org/ApplicationSchema#KExactGeom', 'Polygon((-77.089005 38.913574,-77.029953 38.913574,-77.029953 38.886321,-77.089005 38.886321,-77.089005 38.913574))'),
+  ('http://example.org/ApplicationSchema#LExactGeom', 'Point(-88.38 31.95)'),
+  ('http://example.org/ApplicationSchema#MExactGeom', 'Point(31.95 -88.38)');
+
+CREATE TABLE geobench.aswkt_epsg3857 (subject_iri TEXT PRIMARY KEY , wkt geometry NOT NULL);
+INSERT INTO geobench.aswkt_epsg3857 (subject_iri,wkt) VALUES
+  ('http://example.org/ApplicationSchema#NExactGeom', 'POINT Z (2 3 7)'),
+  ('http://example.org/ApplicationSchema#OExactGeom', 'LINESTRING Z (0 0 2, 3 4 9)'),
+  ('http://example.org/ApplicationSchema#PExactGeom', 'MULTIPOINT ((0 0),(3 4))'),
+  ('http://example.org/ApplicationSchema#QExactGeom', 'POLYGON ((0 0,10 0,10 10,0 10,0 0))'),
+  ('http://example.org/ApplicationSchema#RExactGeom', 'POINT (0 0)'),
+  ('http://example.org/ApplicationSchema#SExactGeom', 'POINT (3 4)'),
+  ('http://example.org/ApplicationSchema#TExactGeom', 'LINESTRING (0 0,3 4)'),
+  ('http://example.org/ApplicationSchema#UExactGeom', 'POLYGON ((0 0,4 0,4 4,2 2,0 4,0 0))'),
+  ('http://example.org/ApplicationSchema#VExactGeom', 'POINT M (1 2 5)'),
+  ('http://example.org/ApplicationSchema#WExactGeom', 'MULTIPOLYGON (((0 0,2 0,2 2,0 2,0 0)),((4 0,6 0,6 2,4 2,4 0)))');
+
+CREATE TABLE geobench.hasserialization_crs84 (subject_iri TEXT PRIMARY KEY , wkt geometry(Geometry, 4326) NOT NULL);
+INSERT INTO geobench.hasserialization_crs84 (subject_iri,wkt) VALUES
+  ('http://example.org/ApplicationSchema#AExactGeom', 'Polygon((-83.6 34.1, -83.2 34.1, -83.2 34.5, -83.6 34.5, -83.6 34.1))');
+
+CREATE TABLE geobench.asgml (subject_iri TEXT PRIMARY KEY , gml TEXT NOT NULL);
+INSERT INTO geobench.asgml (subject_iri,gml) VALUES
+  ('http://example.org/ApplicationSchema#AExactGeom', '<gml:Polygon xmlns:gml="http://www.opengis.net/ont/gml" srsName="http://www.opengis.net/def/crs/OGC/1.3/CRS84"><gml:exterior><gml:LinearRing><gml:posList>-83.6 34.1 -83.2 34.1 -83.2 34.5 -83.6 34.5 -83.6 34.1</gml:posList></gml:LinearRing></gml:exterior></gml:Polygon>'),
+  ('http://example.org/ApplicationSchema#APointGeom', '<gml:Point xmlns:gml="http://www.opengis.net/ont/gml" srsName="http://www.opengis.net/def/crs/OGC/1.3/CRS84"><gml:pos>-83.4 34.3</gml:pos></gml:Point>'),
+  ('http://example.org/ApplicationSchema#BExactGeom', '<gml:Polygon xmlns:gml="http://www.opengis.net/ont/gml" srsName="http://www.opengis.net/def/crs/OGC/1.3/CRS84"><gml:exterior><gml:LinearRing><gml:posList>-83.6 34.1 -83.4 34.1 -83.4 34.3 -83.6 34.3 -83.6 34.1</gml:posList></gml:LinearRing></gml:exterior></gml:Polygon>'),
+  ('http://example.org/ApplicationSchema#BPointGeom', '<gml:Point xmlns:gml="http://www.opengis.net/ont/gml" srsName="http://www.opengis.net/def/crs/OGC/1.3/CRS84"><gml:pos>-83.5 34.2</gml:pos></gml:Point>'),
+  ('http://example.org/ApplicationSchema#CExactGeom', '<gml:Polygon xmlns:gml="http://www.opengis.net/ont/gml" srsName="http://www.opengis.net/def/crs/OGC/1.3/CRS84"><gml:exterior><gml:LinearRing><gml:posList>-83.2 34.3 -83.0 34.3 -83.0 34.5 -83.2 34.5 -83.2 34.3</gml:posList></gml:LinearRing></gml:exterior></gml:Polygon>'),
+  ('http://example.org/ApplicationSchema#CPointGeom', '<gml:Point xmlns:gml="http://www.opengis.net/ont/gml" srsName="http://www.opengis.net/def/crs/OGC/1.3/CRS84"><gml:pos>-83.1 34.4</gml:pos></gml:Point>'),
+  ('http://example.org/ApplicationSchema#DExactGeom', '<gml:Polygon xmlns:gml="http://www.opengis.net/ont/gml" srsName="http://www.opengis.net/def/crs/OGC/1.3/CRS84"><gml:exterior><gml:LinearRing><gml:posList>-83.3 34.0 -83.1 34.0 -83.1 34.2 -83.3 34.2 -83.3 34.0</gml:posList></gml:LinearRing></gml:exterior></gml:Polygon>'),
+  ('http://example.org/ApplicationSchema#DPointGeom', '<gml:Point xmlns:gml="http://www.opengis.net/ont/gml" srsName="http://www.opengis.net/def/crs/OGC/1.3/CRS84"><gml:pos>-83.2 34.1</gml:pos></gml:Point>'),
+  ('http://example.org/ApplicationSchema#EExactGeom', '<gml:LineString srsName="http://www.opengis.net/def/crs/OGC/1.3/CRS84" xmlns:gml="http://www.opengis.net/ont/gml"><gml:posList>-83.4 34.0 -83.3 34.3</gml:posList></gml:LineString>'),
+  ('http://example.org/ApplicationSchema#FExactGeom', '<gml:Point xmlns:gml="http://www.opengis.net/ont/gml" srsName="http://www.opengis.net/def/crs/OGC/1.3/CRS84"><gml:pos>-83.4 34.4</gml:pos></gml:Point>'),
+  ('http://example.org/ApplicationSchema#GExactGeom', '<gml:Polygon xmlns:gml="http://www.opengis.net/ont/gml" srsName="http://www.opengis.net/def/crs/OGC/1.3/CRS84"><gml:exterior><gml:LinearRing><gml:posList>-83.5 34.2 -83.3 34.2 -83.3 34.4 -83.5 34.4 -83.5 34.2</gml:posList></gml:LinearRing></gml:exterior></gml:Polygon>'),
+  ('http://example.org/ApplicationSchema#GPointGeom', '<gml:Point xmlns:gml="http://www.opengis.net/ont/gml" srsName="http://www.opengis.net/def/crs/OGC/1.3/CRS84"><gml:pos>-83.4 34.3</gml:pos></gml:Point>'),
+  ('http://example.org/ApplicationSchema#HExactGeom', ''),
+  ('http://example.org/ApplicationSchema#HPointGeom', ''),
+  ('http://example.org/ApplicationSchema#IExactGeom', '<LineString xmlns="https://www.opengis.net/gml"><posList></posList></LineString>'),
+  ('http://example.org/ApplicationSchema#IPointGeom', '<Point xmlns="https://www.opengis.net/gml"><posList></posList></Point>'),
+  ('http://example.org/ApplicationSchema#JExactGeom', '<gml:Polygon xmlns:gml="http://www.opengis.net/ont/gml" srsName="http://www.opengis.net/def/crs/OGC/1.3/CRS84"><gml:exterior><gml:LinearRing><gml:posList>-77.089005 38.913574 -77.029953 38.913574 -77.029953 38.886321 -77.089005 38.886321 -77.089005 38.913574</gml:posList></gml:LinearRing></gml:exterior></gml:Polygon>'),
+  ('http://example.org/ApplicationSchema#KExactGeom', '<gml:Polygon xmlns:gml="http://www.opengis.net/ont/gml" srsName="http://www.opengis.net/def/crs/OGC/1.3/CRS84"><gml:exterior><gml:LinearRing><gml:posList>-77.089005 38.913574 -77.029953 38.913574 -77.029953 38.886321 -77.089005 38.886321 -77.089005 38.913574</gml:posList></gml:LinearRing></gml:exterior></gml:Polygon>'),
+  ('http://example.org/ApplicationSchema#LExactGeom', '<gml:Point xmlns:gml="http://www.opengis.net/ont/gml" srsName="http://www.opengis.net/def/crs/OGC/1.3/CRS84"><gml:pos>-88.38 31.95</gml:pos></gml:Point>'),
+  ('http://example.org/ApplicationSchema#MExactGeom', '<gml:Point xmlns:gml="http://www.opengis.net/ont/gml" srsName="http://www.opengis.net/def/crs/EPSG/0/4326"><gml:pos>31.95 -88.38</gml:pos></gml:Point>');
+
+CREATE TABLE geobench.aswkt_empty_lexical (subject_iri TEXT PRIMARY KEY , wkt TEXT NOT NULL);
+INSERT INTO geobench.aswkt_empty_lexical (subject_iri,wkt) VALUES
+  ('http://example.org/ApplicationSchema#HExactGeom', ''),
+  ('http://example.org/ApplicationSchema#HPointGeom', '');
+
+CREATE TABLE geobench.aswkt_implicit_crs84 (subject_iri TEXT PRIMARY KEY , wkt geometry(Geometry, 4326) NOT NULL);
+INSERT INTO geobench.aswkt_implicit_crs84 (subject_iri,wkt) VALUES
+  ('http://example.org/ApplicationSchema#IExactGeom', 'LINESTRING EMPTY'),
+  ('http://example.org/ApplicationSchema#IPointGeom', 'POINT EMPTY');
+
+-- CREATE TABLE geobench.aswkt_epsg3857 (subject_iri TEXT PRIMARY KEY, wkt Geometry NOT NULL);
+-- INSERT INTO geobench.aswkt_epsg3857 (subject_iri,wkt) VALUES
+--   ('http://example.org/ApplicationSchema#NExactGeom', 'POINT Z (2 3 7)'),
+--   ('http://example.org/ApplicationSchema#OExactGeom', 'LINESTRING Z (0 0 2, 3 4 9)'),
+--   ('http://example.org/ApplicationSchema#PExactGeom', 'MULTIPOINT ((0 0),(3 4))'),
+--   ('http://example.org/ApplicationSchema#QExactGeom', 'POLYGON ((0 0,10 0,10 10,0 10,0 0))'),
+--   ('http://example.org/ApplicationSchema#RExactGeom', 'POINT (0 0)'),
+--   ('http://example.org/ApplicationSchema#SExactGeom', 'POINT (3 4)'),
+--   ('http://example.org/ApplicationSchema#TExactGeom', 'LINESTRING (0 0,3 4)'),
+--   ('http://example.org/ApplicationSchema#UExactGeom', 'POLYGON ((0 0,4 0,4 4,2 2,0 4,0 0))'),
+--   ('http://example.org/ApplicationSchema#VExactGeom', 'POINT M (1 2 5)'),
+--   ('http://example.org/ApplicationSchema#WExactGeom', 'MULTIPOLYGON (((0 0,2 0,2 2,0 2,0 0)),((4 0,6 0,6 2,4 2,4 0)))');
+
+-- ALTER TABLE geobench.iri_fact_default_geometry
+--     ADD CONSTRAINT fk_geometry_1
+--         FOREIGN KEY (object_iri)
+--             REFERENCES geobench.aswkt_crs84(subject_iri);
+
+-- ALTER TABLE geobench.iri_fact_default_geometry
+--     ADD CONSTRAINT fk_geometry_2
+--         FOREIGN KEY (object_iri)
+--             REFERENCES geobench.aswkt_epsg3857(subject_iri);
+
+-- CREATE TABLE geobench.geometry_all (
+--                                        subject_iri TEXT PRIMARY KEY,
+--                                        wkt geometry NOT NULL,
+--                                        crs TEXT NOT NULL,
+--                                        CONSTRAINT valid_crs
+--                                            CHECK (crs IN ('CRS84', 'EPSG3857'))
+-- );
+--
+-- INSERT INTO geobench.geometry_all (subject_iri, wkt, crs)
+-- SELECT subject_iri, wkt, 'CRS84'
+-- FROM geobench.aswkt_crs84
+--
+-- UNION ALL
+--
+-- SELECT subject_iri, wkt, 'EPSG3857'
+-- FROM geobench.aswkt_epsg3857;
+--
+-- ALTER TABLE geobench.iri_fact_default_geometry
+-- DROP CONSTRAINT fk_geometry_1;
+--
+-- ALTER TABLE geobench.iri_fact_default_geometry
+--     ADD CONSTRAINT fk_geometry_all
+--         FOREIGN KEY (object_iri)
+--             REFERENCES geobench.geometry_all(subject_iri);
 
 COMMIT;

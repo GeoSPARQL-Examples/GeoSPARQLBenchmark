@@ -1,0 +1,20 @@
+{
+  "configurations": {
+    "crs84": {
+      "mapping": "crs84.obda",
+      "description": "Explicit CRS84 WKT literals"
+    },
+    "epsg3857": {
+      "mapping": "epsg3857.obda",
+      "description": "Explicit EPSG:3857 WKT literals"
+    },
+    "implicit-crs84": {
+      "mapping": "implicit-crs84.obda",
+      "description": "WKT literals without an explicit CRS"
+    },
+    "empty-lexical": {
+      "mapping": "empty-lexical.obda",
+      "description": "Empty WKT lexical values"
+    }
+  }
+}
