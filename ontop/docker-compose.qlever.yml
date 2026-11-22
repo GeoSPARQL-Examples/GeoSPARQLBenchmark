@@ -1,0 +1,19 @@
+x-qlever: &qlever
+  image: adfreiburg/qlever
+  user: "1000:1000"
+  entrypoint: ["bash", "-c"]
+
+services:
+  qlever-index:
+    <<: *qlever
+    profiles: ["qlever-index"]
+    working_dir: /index
+    volumes: ["./data/rdf:/data:ro", "./data/qlever:/index"]
+    command: ["qlever-index -i geobench -f /data/merged_modified.ttl -F ttl"]
+
+  qlever:
+    <<: *qlever
+    profiles: ["qlever"]
+    volumes: ["./data/qlever:/index"]
+    ports: ["7001:7001"]
+    command: ["qlever-server -i /index/geobench -p 7001 -j 4 -m 2G"]

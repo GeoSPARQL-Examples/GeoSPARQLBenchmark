@@ -1,0 +1,47 @@
+services:
+  merge:
+    image: python:3.12-slim
+    working_dir: /data
+    volumes:
+      - ./data/rdf:/data
+    command:
+      - /bin/sh
+      - -c
+      - |
+        pip install --quiet --root-user-action=ignore rdflib &&
+        python - <<'PY'
+        from rdflib import Graph
+        from pathlib import Path
+
+        files = [
+            "crs84.ttl",
+            "epsg3857.ttl",
+            "implicit-crs84.ttl",
+            "empty-lexical.ttl",
+        ]
+
+        merged = Graph()
+
+        for filename in files:
+            path = Path(filename)
+
+            if not path.exists():
+                raise FileNotFoundError(f"Missing file: {path}")
+
+            before = len(merged)
+            merged.parse(path, format="turtle")
+
+            print(
+                f"{filename}: "
+                f"{len(merged) - before} new triples, "
+                f"{len(merged)} total unique triples",
+                flush=True
+            )
+
+        output = "merged.ttl"
+        merged.serialize(destination=output, format="turtle")
+
+        print(f"\nMerged {len(files)} files.", flush=True)
+        print(f"Total unique triples: {len(merged)}", flush=True)
+        print(f"Output: {output}", flush=True)
+        PY

@@ -10,6 +10,11 @@ HERE = Path(__file__).parent
 CRS84 = "http://www.opengis.net/def/crs/OGC/1.3/CRS84"
 XSD_BOOL = "http://www.w3.org/2001/XMLSchema#boolean"
 
+ENGINES = {
+    "ontop":  "http://ontop-{config}:8080/sparql",
+    "jena":   "http://jena-{config}:3030/ds/sparql",
+    "qlever": "http://qlever-{config}:7001/",
+}
 
 # ---------- endpoint helpers ----------
 def wait_ready(url, timeout):
@@ -39,6 +44,8 @@ def run_query(url, query, timeout):
     if "boolean" in body:
         return [{"result": {"type": "literal", "datatype": XSD_BOOL,
                             "value": str(body["boolean"]).lower()}}], elapsed
+    if any("result" not in b for b in body["results"]["bindings"]):
+            raise RuntimeError("unsupported: unbound ?result (function evaluated to NULL)")
     return body["results"]["bindings"], elapsed
 
 
@@ -115,20 +122,14 @@ def rows_match(actual, expected, mode, tol):
             return False
     return True
 
-
-def resolve_expectation(entry, cfg):
-    if entry is None:
-        return None
-    base = {k: v for k, v in entry.items() if k != "byConfiguration"}
-    return {**base, **entry.get("byConfiguration", {}).get(cfg, {})}
-
-
 # ---------- main ----------
 def evaluate(exp, actual, error):
     if exp is None:
         return "PENDING", "no expectation defined"
     if exp.get("expectError"):
         return ("PASS", "") if error else ("FAIL", "expected an error, got a result")
+    if error and any(s in error.lower() for s in ("not supported", "unknown function", "unsupported")):
+            return "UNSUPPORTED", error
     if error:
         return "ERROR", error
     accepted = exp.get("acceptedResults", [])
@@ -140,13 +141,21 @@ def evaluate(exp, actual, error):
     return "FAIL", "result did not match any accepted result"
 
 
+def resolve_expectation(entry, cfg, engine):
+    if entry is None:
+        return None
+    base = {k: v for k, v in entry.items() if k not in ("byConfiguration", "byEngine")}
+    return {**base, **entry.get("byConfiguration", {}).get(cfg, {}),
+            **entry.get("byEngine", {}).get(engine, {})}
+
 def main():
     p = argparse.ArgumentParser()
+    p.add_argument("--engine", default=os.environ.get("ENGINE", "ontop"), choices=ENGINES)
+    p.add_argument("--endpoint-template", default=None,
+                   help="URL with optional {config} placeholder; defaults per engine")
     p.add_argument("--queries-dir", default=os.environ.get("QUERIES_DIR", str(HERE.parent / "queries")))
     p.add_argument("--expected", default=str(HERE / "expected-results.json"))
-    p.add_argument("--output", default=str(HERE / "results" / "latest.json"))
-    p.add_argument("--endpoint-template",
-                   default=os.environ.get("ENDPOINT_TEMPLATE", "http://localhost:8080/sparql"))
+    p.add_argument("--output", default=None, help="defaults to results/<engine>.json")
     p.add_argument("--test", action="append", help="test id (repeatable)")
     p.add_argument("--config", action="append", help="configuration id (repeatable)")
     p.add_argument("--repeat", type=int, default=3)
@@ -154,6 +163,11 @@ def main():
     p.add_argument("--timeout", type=int, default=120)
     p.add_argument("--wait", type=int, default=180)
     args = p.parse_args()
+
+    if args.endpoint_template is None:
+        args.endpoint_template = ENGINES[args.engine]
+    if args.output is None:
+        args.output = str(HERE / "results" / f"{args.engine}.json")
 
     configs = json.loads((HERE / "configurations.json").read_text())["configurations"]
     tests = json.loads((HERE / "tests.json").read_text())["tests"]
@@ -190,7 +204,7 @@ def main():
             except Exception as ex:
                 error = str(ex)
 
-            status, detail = evaluate(resolve_expectation(expected.get(t["id"]), cfg), actual, error)
+            status, detail = evaluate(resolve_expectation(expected.get(t["id"]), cfg, args.engine), actual, error)
             results.append({
                 "test": t["id"], "config": cfg, "status": status, "detail": detail,
                 "median_s": statistics.median(times) if times else None,
@@ -204,7 +218,8 @@ def main():
     out = Path(args.output)
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(results, indent=2))
-    counts = {s: sum(r["status"] == s for r in results) for s in ("PASS", "FAIL", "ERROR", "PENDING")}
+    counts = {s: sum(r["status"] == s for r in results)
+              for s in ("PASS", "FAIL", "ERROR", "UNSUPPORTED", "PENDING")}
     print("\n" + "  ".join(f"{k}={v}" for k, v in counts.items()) + f"   -> {out}")
     sys.exit(1 if counts["FAIL"] or counts["ERROR"] else 0)
 

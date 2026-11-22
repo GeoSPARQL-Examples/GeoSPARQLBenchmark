@@ -244,7 +244,7 @@
   "geometryType_01": {
     "function": "geof:geometryType",
     "status": "reference-derived",
-    "comparison": "rdf-value",
+    "comparison": "exact",
     "acceptedResults": [
       {
         "bindings": [

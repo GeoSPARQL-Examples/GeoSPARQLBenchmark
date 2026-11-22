@@ -1,0 +1,10 @@
+services:
+  jena:
+    profiles: ["jena"]
+    build:
+      context: ./docker/jena
+      args: {JENA_REF: "${JENA_REF:-jena-6.3.0}"}
+    image: geobench/jena:${JENA_REF:-jena-6.3.0}
+    volumes: ["./data/rdf:/data:ro"]
+    command: ["-rf", "/data/merged_modified_crs84_only.ttl", "-l", "false"]
+    ports: ["3030:3030"]

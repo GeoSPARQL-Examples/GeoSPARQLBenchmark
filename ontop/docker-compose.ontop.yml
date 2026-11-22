@@ -54,6 +54,7 @@ services:
   benchmark:
     profiles: [ "benchmark" ]
     image: python:3.12-slim
+    #build: ./vkg/benchmark
     working_dir: /work/benchmark
     volumes:
       - ./vkg:/work
@@ -63,3 +64,21 @@ services:
       QUERIES_DIR: /queries
     depends_on: [ ontop-crs84, ontop-epsg3857, ontop-implicit-crs84, ontop-empty-lexical ]
     command: sh -c "pip install -q --root-user-action=ignore requests shapely && python run.py"
+
+  materialize:
+    <<: *ontop
+    profiles: [ "materialize" ]
+    volumes:
+      - ./vkg:/opt/ontop/input:ro
+      - ./jdbc:/opt/ontop/jdbc:ro
+      - ./data/rdf:/out
+    entrypoint: [ "/bin/sh", "-c" ]
+    command:
+      - |
+        for c in crs84 epsg3857 implicit-crs84 empty-lexical; do
+          echo "materializing $$c"
+          ontop materialize -m /opt/ontop/input/mappings/$$c.obda \
+            -t /opt/ontop/input/geobench.ttl \
+            -p /opt/ontop/input/benchmark.properties \
+            -f turtle -o /out/$$c.ttl || exit 1
+        done
